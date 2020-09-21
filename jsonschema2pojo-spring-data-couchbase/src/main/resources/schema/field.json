@@ -1,0 +1,50 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"properties": {
+		"name": {
+			"type": "string"
+		},
+		"order": {
+			"type": "integer",
+			"format": "int32"
+		},
+		"idPrefix": {
+			"properties": {
+				"order": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"idAttribute": {
+			"properties": {
+				"order": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"idSuffix": {
+			"properties": {
+				"order": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"index": {
+			"properties": {
+				"direction": {
+					"type": "string",
+					"enum": [
+						"ASCENDING",
+						"DESCENDING"
+					]
+				},
+				"name": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}

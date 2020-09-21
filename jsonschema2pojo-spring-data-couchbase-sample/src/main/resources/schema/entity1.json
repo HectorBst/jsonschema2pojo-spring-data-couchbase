@@ -1,0 +1,58 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"title": "Sample entity",
+	"x-cb-document": true,
+	"properties": {
+		"id": {
+			"title": "Entity id",
+			"type": "string",
+			"format": "uuid",
+			"x-cb-id": true
+		},
+		"cas": {
+			"title": "Couchbase CAS",
+			"type": "integer",
+			"format": "int64",
+			"x-cb-cas": true
+		},
+		"aString": {
+			"title": "A sample string",
+			"type": "string"
+		},
+		"anInteger": {
+			"title": "A sample integer",
+			"type": "integer",
+			"format": "int32"
+		},
+		"aLong": {
+			"title": "A sample long",
+			"type": "integer",
+			"format": "int64"
+		},
+		"aFloat": {
+			"title": "A sample float",
+			"type": "number",
+			"format": "float32"
+		},
+		"aDouble": {
+			"title": "A sample double",
+			"type": "number",
+			"format": "float64"
+		},
+		"aReal": {
+			"title": "A sample big decimal",
+			"type": "number",
+			"format": "real"
+		},
+		"aSubObject": {
+			"title": "A sample sub object",
+			"type": "object",
+			"properties": {
+				"anOtherString": {
+					"title": "An other sample string",
+					"type": "string"
+				}
+			}
+		}
+	}
+}

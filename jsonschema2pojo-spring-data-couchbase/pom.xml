@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.github.hectorbst.jsonschema2pojo</groupId>
+	<artifactId>jsonschema2pojo-spring-data-couchbase</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<jsonschema2pojo.version>1.0.2</jsonschema2pojo.version>
+		<junit.version>5.6.2</junit.version>
+		<mockito.version>3.5.10</mockito.version>
+		<assertj.version>3.17.2</assertj.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.jsonschema2pojo</groupId>
+			<artifactId>jsonschema2pojo-core</artifactId>
+			<version>${jsonschema2pojo.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>${assertj.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>${junit.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jsonschema2pojo</groupId>
+				<artifactId>jsonschema2pojo-maven-plugin</artifactId>
+				<version>${jsonschema2pojo.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
+							<targetPackage>org.jsonschema2pojo.springframework.data.couchbase.definition</targetPackage>
+							<generateBuilders>false</generateBuilders>
+							<includeSetters>false</includeSetters>
+							<includeAdditionalProperties>false</includeAdditionalProperties>
+							<useDoubleNumbers>true</useDoubleNumbers>
+							<useLongIntegers>true</useLongIntegers>
+							<dateType>java.time.LocalDate</dateType>
+							<timeType>java.time.OffsetTime</timeType>
+							<dateTimeType>java.time.OffsetDateTime</dateTimeType>
+							<removeOldOutput>true</removeOldOutput>
+							<annotationStyle>none</annotationStyle>
+							<useOptionalForGetters>false</useOptionalForGetters>
+							<initializeCollections>false</initializeCollections>
+							<formatTypeMapping>
+								<int32>java.lang.Integer</int32>
+								<int64>java.lang.Long</int64>
+								<float32>java.lang.Float</float32>
+								<float64>java.lang.Double</float64>
+							</formatTypeMapping>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,88 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"title": "Sample entity",
+	"x-cb-document": true,
+	"properties": {
+		"id": {
+			"title": "Entity id",
+			"type": "string",
+			"x-cb-id": true
+		},
+		"cas": {
+			"title": "Couchbase CAS",
+			"type": "integer",
+			"format": "int64",
+			"x-cb-cas": true
+		},
+		"field1": {
+			"title": "A sample field",
+			"type": "string"
+		},
+		"field2": {
+			"title": "A sample field",
+			"type": "string"
+		},
+		"joinedEntity1Id": {
+			"title": "A sample joined entity key",
+			"type": "string"
+		},
+		"joinedEntity1": {
+			"title": "A sample joined entity",
+			"type": "object",
+			"x-cb-join": {
+				"on": "KEYS lks.joinedEntity1Id"
+			},
+			"x-cb-document": true,
+			"properties": {
+				"id": {
+					"title": "Entity id",
+					"type": "string",
+					"x-cb-id": true
+				},
+				"cas": {
+					"title": "Couchbase CAS",
+					"type": "integer",
+					"format": "int64",
+					"x-cb-cas": true
+				},
+				"field1": {
+					"title": "A sample field",
+					"type": "string"
+				},
+				"field2": {
+					"title": "A sample field",
+					"type": "string"
+				}
+			}
+		},
+		"joinedEntity2Id": {
+			"title": "A sample joined entity key",
+			"type": "string"
+		},
+		"joinedEntity2": {
+			"title": "A sample joined entity",
+			"existingJavaType": "JoinedEntity2",
+			"x-cb-join": {
+				"on": "KEYS lks.joinedEntity2Id"
+			}
+		},
+		"joinedEntity2BisId": {
+			"title": "A sample joined entity key",
+			"type": "string"
+		},
+		"joinedEntity2Bis": {
+			"title": "A sample joined entity",
+			"existingJavaType": "JoinedEntity2",
+			"x-cb-join": {
+				"on": "KEYS lks.joinedEntity2Id",
+				"fetchType": "LAZY",
+				"where": "rks.field1 = 'test'",
+				"hashSide": "NONE",
+				"keys": [
+					"Test::1",
+					"Test::2"
+				]
+			}
+		}
+	}
+}

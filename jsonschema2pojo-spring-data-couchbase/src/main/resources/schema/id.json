@@ -1,0 +1,20 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"properties": {
+		"generated": {
+			"type": "object",
+			"properties": {
+				"delimiter": {
+					"type": "string"
+				},
+				"strategy": {
+					"type": "string",
+					"enum": [
+						"USE_ATTRIBUTES",
+						"UNIQUE"
+					]
+				}
+			}
+		}
+	}
+}

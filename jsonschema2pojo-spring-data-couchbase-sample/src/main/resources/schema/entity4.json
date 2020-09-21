@@ -1,0 +1,81 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"title": "Sample entity",
+	"x-cb-document": {
+		"compositeIndexes": [
+			{
+				"fields": [
+					"compositeIndexField1",
+					"compositeIndexField2"
+				]
+			},
+			{
+				"fields": [
+					"compositeIndexField3",
+					"compositeIndexField4",
+					"compositeIndexField5"
+				],
+				"name": "idx_composite_test"
+			}
+		]
+	},
+	"properties": {
+		"id": {
+			"title": "Entity id",
+			"type": "string",
+			"x-cb-id": true
+		},
+		"cas": {
+			"title": "Couchbase CAS",
+			"type": "integer",
+			"format": "int64",
+			"x-cb-cas": true
+		},
+		"indexedField": {
+			"title": "A sample indexed field",
+			"type": "string",
+			"x-cb-field": {
+				"index": true
+			}
+		},
+		"anotherIndexedField": {
+			"title": "An other sample indexed field",
+			"type": "string",
+			"x-cb-field": {
+				"index": {
+					"name": "idx_test1"
+				}
+			}
+		},
+		"yetAnotherIndexedField": {
+			"title": "An other sample indexed field",
+			"type": "string",
+			"x-cb-field": {
+				"index": {
+					"direction": "ASCENDING",
+					"name": "idx_test2"
+				}
+			}
+		},
+		"compositeIndexField1": {
+			"title": "A sample composite indexed field",
+			"type": "string"
+		},
+		"compositeIndexField2": {
+			"title": "A sample composite indexed field",
+			"type": "string"
+		},
+		"compositeIndexField3": {
+			"title": "A sample composite indexed field",
+			"type": "string"
+		},
+		"compositeIndexField4": {
+			"title": "A sample composite indexed field",
+			"type": "string"
+		},
+		"compositeIndexField5": {
+			"title": "A sample composite indexed field",
+			"type": "string"
+		}
+	}
+}

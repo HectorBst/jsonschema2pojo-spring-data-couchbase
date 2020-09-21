@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.github.hectorbst.jsonschema2pojo</groupId>
+	<artifactId>jsonschema2pojo-spring-data-couchbase-sample</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<jsonschema2pojo.version>1.0.2</jsonschema2pojo.version>
+		<spring-boot.version>2.3.4.RELEASE</spring-boot.version>
+		<jsonschema2pojo-spring-data-couchbase.version>1.0.0-SNAPSHOT</jsonschema2pojo-spring-data-couchbase.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-couchbase</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jsonschema2pojo</groupId>
+				<artifactId>jsonschema2pojo-maven-plugin</artifactId>
+				<version>${jsonschema2pojo.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
+							<targetPackage>org.jsonschema2pojo.springframework.data.couchbase.sample</targetPackage>
+							<generateBuilders>true</generateBuilders>
+							<useInnerClassBuilders>false</useInnerClassBuilders>
+							<includeAdditionalProperties>false</includeAdditionalProperties>
+							<useDoubleNumbers>true</useDoubleNumbers>
+							<useLongIntegers>true</useLongIntegers>
+							<dateType>java.time.LocalDate</dateType>
+							<timeType>java.time.OffsetTime</timeType>
+							<dateTimeType>java.time.OffsetDateTime</dateTimeType>
+							<removeOldOutput>true</removeOldOutput>
+							<annotationStyle>none</annotationStyle>
+							<useOptionalForGetters>false</useOptionalForGetters>
+							<usePrimitives>true</usePrimitives>
+							<initializeCollections>false</initializeCollections>
+							<formatTypeMapping>
+								<int32>java.lang.Integer</int32>
+								<int64>java.lang.Long</int64>
+								<float32>java.lang.Float</float32>
+								<float64>java.lang.Double</float64>
+								<real>java.math.BigDecimal</real>
+							</formatTypeMapping>
+							<customAnnotator>
+								org.jsonschema2pojo.springframework.data.couchbase.SpringDataCouchbase4Annotator
+							</customAnnotator>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.github.hectorbst.jsonschema2pojo</groupId>
+						<artifactId>jsonschema2pojo-spring-data-couchbase</artifactId>
+						<version>${jsonschema2pojo-spring-data-couchbase.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+</project>

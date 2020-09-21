@@ -1,0 +1,65 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"title": "Sample entity",
+	"x-cb-document": {
+		"expiry": 2,
+		"expiryUnit": "MINUTES",
+		"touchOnRead": true
+	},
+	"properties": {
+		"id": {
+			"title": "Entity id",
+			"type": "string",
+			"x-cb-id": {
+				"generated": {
+					"delimiter": "::",
+					"strategy": "USE_ATTRIBUTES"
+				}
+			}
+		},
+		"cas": {
+			"title": "Couchbase CAS",
+			"type": "integer",
+			"format": "int64",
+			"x-cb-cas": true
+		},
+		"prefix": {
+			"title": "An sample id prefix",
+			"type": "string",
+			"x-cb-field": {
+				"idPrefix": true
+			}
+		},
+		"theKey": {
+			"title": "An sample id attribute",
+			"type": "string",
+			"x-cb-field": {
+				"idAttribute": true
+			}
+		},
+		"theKeyOne": {
+			"title": "An sample id attribute with order",
+			"type": "string",
+			"x-cb-field": {
+				"idAttribute": {
+					"order": 1
+				}
+			}
+		},
+		"suffix": {
+			"title": "An sample id suffix",
+			"type": "string",
+			"x-cb-field": {
+				"idSuffix": true
+			}
+		},
+		"sample": {
+			"title": "An sample field",
+			"type": "string",
+			"x-cb-field": {
+				"name": "persistedName",
+				"order": 5
+			}
+		}
+	}
+}

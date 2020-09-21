@@ -1,0 +1,26 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"title": "Sample joined entity",
+	"x-cb-document": true,
+	"properties": {
+		"id": {
+			"title": "Entity id",
+			"type": "string",
+			"x-cb-id": true
+		},
+		"cas": {
+			"title": "Couchbase CAS",
+			"type": "integer",
+			"format": "int64",
+			"x-cb-cas": true
+		},
+		"field1": {
+			"title": "A sample field",
+			"type": "string"
+		},
+		"field2": {
+			"title": "A sample field",
+			"type": "string"
+		}
+	}
+}
