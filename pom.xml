@@ -11,6 +11,6 @@
 
 	<modules>
 		<module>jsonschema2pojo-spring-data-couchbase</module>
-		<module>jsonschema2pojo-spring-data-couchbase-sample</module>
+		<module>jsonschema2pojo-spring-data-couchbase-example</module>
 	</modules>
 </project>
