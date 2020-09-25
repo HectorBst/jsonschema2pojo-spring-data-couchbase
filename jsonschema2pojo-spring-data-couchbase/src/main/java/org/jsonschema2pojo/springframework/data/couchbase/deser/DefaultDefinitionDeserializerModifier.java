@@ -5,17 +5,18 @@ import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import org.jsonschema2pojo.springframework.data.couchbase.definition.Cas;
-import org.jsonschema2pojo.springframework.data.couchbase.definition.Document;
-import org.jsonschema2pojo.springframework.data.couchbase.definition.Field;
-import org.jsonschema2pojo.springframework.data.couchbase.definition.Generated;
-import org.jsonschema2pojo.springframework.data.couchbase.definition.Id;
-import org.jsonschema2pojo.springframework.data.couchbase.definition.IdAttribute;
-import org.jsonschema2pojo.springframework.data.couchbase.definition.IdPrefix;
-import org.jsonschema2pojo.springframework.data.couchbase.definition.IdSuffix;
-import org.jsonschema2pojo.springframework.data.couchbase.definition.Index;
+import org.jsonschema2pojo.springframework.data.couchbase.definitions.CasDef;
+import org.jsonschema2pojo.springframework.data.couchbase.definitions.DocumentDef;
+import org.jsonschema2pojo.springframework.data.couchbase.definitions.FieldDef;
+import org.jsonschema2pojo.springframework.data.couchbase.definitions.GeneratedDef;
+import org.jsonschema2pojo.springframework.data.couchbase.definitions.IdAttributeDef;
+import org.jsonschema2pojo.springframework.data.couchbase.definitions.IdDef;
+import org.jsonschema2pojo.springframework.data.couchbase.definitions.IdPrefixDef;
+import org.jsonschema2pojo.springframework.data.couchbase.definitions.IdSuffixDef;
+import org.jsonschema2pojo.springframework.data.couchbase.definitions.IndexDef;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collections;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -28,16 +29,16 @@ import java.util.stream.Stream;
  */
 public class DefaultDefinitionDeserializerModifier extends BeanDeserializerModifier {
 
-	private final Map<Class<?>, Object> defaultDefinitions = Stream.of(
-			Cas.class,
-			Document.class,
-			Field.class,
-			Generated.class,
-			Id.class,
-			IdAttribute.class,
-			IdPrefix.class,
-			IdSuffix.class,
-			Index.class
+	private final Map<Class<?>, Object> defaultDefinitions = Collections.unmodifiableMap(Stream.of(
+			CasDef.class,
+			DocumentDef.class,
+			FieldDef.class,
+			GeneratedDef.class,
+			IdDef.class,
+			IdAttributeDef.class,
+			IdPrefixDef.class,
+			IdSuffixDef.class,
+			IndexDef.class
 	).collect(Collectors.toMap(
 			Function.identity(),
 			clazz -> {
@@ -47,7 +48,7 @@ public class DefaultDefinitionDeserializerModifier extends BeanDeserializerModif
 					throw new RuntimeException(e.getMessage(), e);
 				}
 			}
-	));
+	)));
 
 	@Override
 	public JsonDeserializer<?> modifyDeserializer(DeserializationConfig config, BeanDescription beanDesc, JsonDeserializer<?> deserializer) {

@@ -39,7 +39,7 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
-							<targetPackage>org.jsonschema2pojo.springframework.data.couchbase.sample</targetPackage>
+							<targetPackage>org.jsonschema2pojo.springframework.data.couchbase.example</targetPackage>
 							<generateBuilders>true</generateBuilders>
 							<useInnerClassBuilders>false</useInnerClassBuilders>
 							<includeAdditionalProperties>false</includeAdditionalProperties>
@@ -60,9 +60,7 @@
 								<float64>java.lang.Double</float64>
 								<real>java.math.BigDecimal</real>
 							</formatTypeMapping>
-							<customAnnotator>
-								org.jsonschema2pojo.springframework.data.couchbase.SpringDataCouchbase4Annotator
-							</customAnnotator>
+							<customRuleFactory>org.jsonschema2pojo.springframework.data.couchbase.rules.SpringDataCouchbaseRuleFactory</customRuleFactory>
 						</configuration>
 					</execution>
 				</executions>
@@ -71,6 +69,11 @@
 						<groupId>com.github.hectorbst.jsonschema2pojo</groupId>
 						<artifactId>jsonschema2pojo-spring-data-couchbase</artifactId>
 						<version>${jsonschema2pojo-spring-data-couchbase.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-data-couchbase</artifactId>
+						<version>${spring-boot.version}</version>
 					</dependency>
 				</dependencies>
 			</plugin>
