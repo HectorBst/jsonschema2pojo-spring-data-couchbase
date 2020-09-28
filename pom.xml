@@ -7,6 +7,35 @@
 	<groupId>com.github.hectorbst.jsonschema2pojo</groupId>
 	<artifactId>jsonschema2pojo-spring-data-couchbase</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>jsonschema2pojo Spring Data Couchbase</name>
+	<description>jsonschema2pojo extension to generate Spring Data Couchbase specific POJOs</description>
+	<url>https://github.com/hectorbst/jsonschema2pojo-spring-data-couchbase</url>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>HectorBst</id>
+			<name>Hector Basset</name>
+			<email>hector.basset.dev@gmail.com</email>
+			<url>https://github.com/HectorBst</url>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/hectorbst/jsonschema2pojo-spring-data-couchbase.git</connection>
+		<developerConnection>scm:git:ssh://github.com:hectorbst/jsonschema2pojo-spring-data-couchbase.git
+		</developerConnection>
+		<url>https://github.com/hectorbst/jsonschema2pojo-spring-data-couchbase</url>
+	</scm>
 
 	<properties>
 		<maven.compiler.source>8</maven.compiler.source>
