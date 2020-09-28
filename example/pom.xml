@@ -7,11 +7,10 @@
 	<groupId>com.github.hectorbst.jsonschema2pojo</groupId>
 	<artifactId>jsonschema2pojo-spring-data-couchbase-example</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
 
 	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 		<jsonschema2pojo.version>1.0.2</jsonschema2pojo.version>
 		<spring-boot.version>2.3.4.RELEASE</spring-boot.version>
 		<jsonschema2pojo-spring-data-couchbase.version>1.0.0-SNAPSHOT</jsonschema2pojo-spring-data-couchbase.version>
@@ -38,7 +37,7 @@
 						</goals>
 						<phase>generate-sources</phase>
 						<configuration>
-							<sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
+							<sourceDirectory>${basedir}/src/main/schema</sourceDirectory>
 							<targetPackage>org.jsonschema2pojo.springframework.data.couchbase.example</targetPackage>
 							<generateBuilders>true</generateBuilders>
 							<useInnerClassBuilders>false</useInnerClassBuilders>
@@ -60,7 +59,9 @@
 								<float64>java.lang.Double</float64>
 								<real>java.math.BigDecimal</real>
 							</formatTypeMapping>
-							<customRuleFactory>org.jsonschema2pojo.springframework.data.couchbase.rules.SpringDataCouchbaseRuleFactory</customRuleFactory>
+							<customRuleFactory>
+								org.jsonschema2pojo.springframework.data.couchbase.rules.SpringDataCouchbaseRuleFactory
+							</customRuleFactory>
 						</configuration>
 					</execution>
 				</executions>

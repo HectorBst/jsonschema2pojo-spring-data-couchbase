@@ -13,7 +13,7 @@ import org.jsonschema2pojo.util.ParcelableHelper;
 
 /**
  * The entry point of the Spring Data Couchbase jsonschema2pojo extension.
- *
+ * <p>
  * Allows the use of additional {@link Rule}s applied to handle Couchbase related elements (e.g. when a schema is marked
  * as document or a property as id).
  *

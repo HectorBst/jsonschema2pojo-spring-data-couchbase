@@ -5,12 +5,112 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.github.hectorbst.jsonschema2pojo</groupId>
-	<artifactId>jsonschema2pojo-spring-data-couchbase-project</artifactId>
+	<artifactId>jsonschema2pojo-spring-data-couchbase</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
 
-	<modules>
-		<module>jsonschema2pojo-spring-data-couchbase</module>
-		<module>jsonschema2pojo-spring-data-couchbase-example</module>
-	</modules>
+	<properties>
+		<maven.compiler.source>8</maven.compiler.source>
+		<maven.compiler.target>8</maven.compiler.target>
+		<jsonschema2pojo.version>1.0.2</jsonschema2pojo.version>
+		<spring-boot.version>2.3.4.RELEASE</spring-boot.version>
+		<junit.version>5.7.0</junit.version>
+		<assertj.version>3.17.2</assertj.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.jsonschema2pojo</groupId>
+			<artifactId>jsonschema2pojo-core</artifactId>
+			<version>${jsonschema2pojo.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-couchbase</artifactId>
+			<version>${spring-boot.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>${assertj.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>${junit.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jsonschema2pojo</groupId>
+				<artifactId>jsonschema2pojo-maven-plugin</artifactId>
+				<version>${jsonschema2pojo.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
+							<targetPackage>org.jsonschema2pojo.springframework.data.couchbase.definitions
+							</targetPackage>
+							<classNameSuffix>Def</classNameSuffix>
+							<generateBuilders>false</generateBuilders>
+							<includeSetters>false</includeSetters>
+							<includeAdditionalProperties>false</includeAdditionalProperties>
+							<useDoubleNumbers>true</useDoubleNumbers>
+							<useLongIntegers>true</useLongIntegers>
+							<dateType>java.time.LocalDate</dateType>
+							<timeType>java.time.OffsetTime</timeType>
+							<dateTimeType>java.time.OffsetDateTime</dateTimeType>
+							<removeOldOutput>true</removeOldOutput>
+							<annotationStyle>none</annotationStyle>
+							<useOptionalForGetters>false</useOptionalForGetters>
+							<initializeCollections>false</initializeCollections>
+							<formatTypeMapping>
+								<int32>java.lang.Integer</int32>
+								<int64>java.lang.Long</int64>
+								<float32>java.lang.Float</float32>
+								<float64>java.lang.Double</float64>
+							</formatTypeMapping>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
