@@ -12,30 +12,27 @@ import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JFieldVar;
 import com.sun.codemodel.JMod;
 import org.jsonschema2pojo.springframework.data.couchbase.util.SpringDataCouchbaseHelper;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
 import org.springframework.data.couchbase.core.mapping.Field;
 
 import java.util.stream.Stream;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Hector Basset
  */
-@ExtendWith(MockitoExtension.class)
+@RunWith(JUnitPlatform.class)
 public class CouchbaseFieldRuleTest {
 
 	static final ObjectMapper objectMapper = new ObjectMapper();
 	final JCodeModel owner = new JCodeModel();
 	final JDefinedClass clazz = owner._class("test.Test");
-	final JFieldVar field = spy(clazz.field(JMod.PRIVATE, owner.ref(String.class), "field"));
+	final JFieldVar field = clazz.field(JMod.PRIVATE, owner.ref(String.class), "field");
 	final CouchbaseFieldRule couchbaseFieldRule = new CouchbaseFieldRule(new SpringDataCouchbaseRuleFactory());
 
 	public CouchbaseFieldRuleTest() throws JClassAlreadyExistsException {
@@ -72,7 +69,7 @@ public class CouchbaseFieldRuleTest {
 		couchbaseFieldRule.apply("test", node, null, field, null);
 
 		// Then
-		verify(field, times(1)).annotate(Field.class);
+		assertThat(field.annotations()).anyMatch(ann -> ann.getAnnotationClass().equals(owner.ref(Field.class)));
 	}
 
 	static private Stream<Arguments> whenPropertyIsNotFieldArguments() {
@@ -85,7 +82,6 @@ public class CouchbaseFieldRuleTest {
 
 	@ParameterizedTest
 	@MethodSource("whenPropertyIsNotFieldArguments")
-	@SuppressWarnings("unchecked")
 	void when_property_is_not_field_must_not_annotate(JsonNode fieldValue, boolean exclusivityValue) {
 
 		// Given
@@ -95,6 +91,6 @@ public class CouchbaseFieldRuleTest {
 		couchbaseFieldRule.apply("test", node, null, field, null);
 
 		// Then
-		verify(field, times(0)).annotate(any(Class.class));
+		assertThat(field.annotations()).isEmpty();
 	}
 }

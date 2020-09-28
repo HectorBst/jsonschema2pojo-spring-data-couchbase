@@ -11,29 +11,26 @@ import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JFieldVar;
 import com.sun.codemodel.JMod;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
 import org.springframework.data.annotation.Version;
 
 import java.util.stream.Stream;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Hector Basset
  */
-@ExtendWith(MockitoExtension.class)
+@RunWith(JUnitPlatform.class)
 public class CouchbaseCasRuleTest {
 
 	static final ObjectMapper objectMapper = new ObjectMapper();
 	final JCodeModel owner = new JCodeModel();
 	final JDefinedClass clazz = owner._class("test.Test");
-	final JFieldVar field = spy(clazz.field(JMod.PRIVATE, owner.LONG, "cas"));
+	final JFieldVar field = clazz.field(JMod.PRIVATE, owner.LONG, "cas");
 	final CouchbaseCasRule couchbaseCasRule = new CouchbaseCasRule(new SpringDataCouchbaseRuleFactory());
 
 	public CouchbaseCasRuleTest() throws JClassAlreadyExistsException {
@@ -66,7 +63,7 @@ public class CouchbaseCasRuleTest {
 		couchbaseCasRule.apply("test", node, null, field, null);
 
 		// Then
-		verify(field, times(1)).annotate(Version.class);
+		assertThat(field.annotations()).anyMatch(ann -> ann.getAnnotationClass().equals(owner.ref(Version.class)));
 	}
 
 	static private Stream<JsonNode> whenPropertyIsNotCasArguments() {
@@ -79,7 +76,6 @@ public class CouchbaseCasRuleTest {
 
 	@ParameterizedTest
 	@MethodSource("whenPropertyIsNotCasArguments")
-	@SuppressWarnings("unchecked")
 	void when_property_is_not_cas_must_not_annotate(JsonNode casValue) {
 
 		// Given
@@ -89,6 +85,6 @@ public class CouchbaseCasRuleTest {
 		couchbaseCasRule.apply("test", node, null, field, null);
 
 		// Then
-		verify(field, times(0)).annotate(any(Class.class));
+		assertThat(field.annotations()).isEmpty();
 	}
 }

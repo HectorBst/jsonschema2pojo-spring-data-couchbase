@@ -11,30 +11,27 @@ import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JFieldVar;
 import com.sun.codemodel.JMod;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
 
 import java.util.stream.Stream;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Hector Basset
  */
-@ExtendWith(MockitoExtension.class)
+@RunWith(JUnitPlatform.class)
 public class CouchbaseIdRuleTest {
 
 	static final ObjectMapper objectMapper = new ObjectMapper();
 	final JCodeModel owner = new JCodeModel();
 	final JDefinedClass clazz = owner._class("test.Test");
-	final JFieldVar field = spy(clazz.field(JMod.PRIVATE, owner.ref(String.class), "id"));
+	final JFieldVar field = clazz.field(JMod.PRIVATE, owner.ref(String.class), "id");
 	final CouchbaseIdRule couchbaseIdRule = new CouchbaseIdRule(new SpringDataCouchbaseRuleFactory());
 
 	public CouchbaseIdRuleTest() throws JClassAlreadyExistsException {
@@ -66,7 +63,7 @@ public class CouchbaseIdRuleTest {
 		couchbaseIdRule.apply("test", node, null, field, null);
 
 		// Then
-		verify(field, times(1)).annotate(Id.class);
+		assertThat(field.annotations()).anyMatch(ann -> ann.getAnnotationClass().equals(owner.ref(Id.class)));
 	}
 
 	static private Stream<JsonNode> whenPropertyIsNotIdArguments() {
@@ -79,7 +76,6 @@ public class CouchbaseIdRuleTest {
 
 	@ParameterizedTest
 	@MethodSource("whenPropertyIsNotIdArguments")
-	@SuppressWarnings("unchecked")
 	void when_property_is_not_id_must_not_annotate(JsonNode idValue) {
 
 		// Given
@@ -89,7 +85,7 @@ public class CouchbaseIdRuleTest {
 		couchbaseIdRule.apply("test", node, null, field, null);
 
 		// Then
-		verify(field, times(0)).annotate(any(Class.class));
+		assertThat(field.annotations()).isEmpty();
 	}
 
 	ObjectNode getIdPropertyNodeWithGenerated(JsonNode generatedValue) {
@@ -116,7 +112,7 @@ public class CouchbaseIdRuleTest {
 		couchbaseIdRule.apply("test", node, null, field, null);
 
 		// Then
-		verify(field, times(1)).annotate(GeneratedValue.class);
+		assertThat(field.annotations()).anyMatch(ann -> ann.getAnnotationClass().equals(owner.ref(GeneratedValue.class)));
 	}
 
 	static private Stream<JsonNode> whenIdIsNotGeneratedArguments() {
@@ -138,6 +134,6 @@ public class CouchbaseIdRuleTest {
 		couchbaseIdRule.apply("test", node, null, field, null);
 
 		// Then
-		verify(field, times(0)).annotate(GeneratedValue.class);
+		assertThat(field.annotations()).noneMatch(ann -> ann.getAnnotationClass().equals(owner.ref(GeneratedValue.class)));
 	}
 }
