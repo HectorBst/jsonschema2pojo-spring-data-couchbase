@@ -6,7 +6,7 @@
 
 	<groupId>io.github.hectorbst</groupId>
 	<artifactId>jsonschema2pojo-spring-data-couchbase</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>jsonschema2pojo Spring Data Couchbase</name>
