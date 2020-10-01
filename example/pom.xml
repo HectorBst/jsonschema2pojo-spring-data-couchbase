@@ -66,7 +66,7 @@
 				</executions>
 				<dependencies>
 					<dependency>
-						<groupId>com.github.hectorbst.jsonschema2pojo</groupId>
+						<groupId>io.github.hectorbst</groupId>
 						<artifactId>jsonschema2pojo-spring-data-couchbase</artifactId>
 						<version>${jsonschema2pojo-spring-data-couchbase.version}</version>
 					</dependency>
