@@ -1,3 +1,7 @@
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/hectorbst/jsonschema2pojo-spring-data-couchbase/Build?label=Build)](https://github.com/HectorBst/jsonschema2pojo-spring-data-couchbase/actions?query=workflow%3ABuild)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.hectorbst/jsonschema2pojo-spring-data-couchbase?label=Maven%20Central)](https://search.maven.org/artifact/io.github.hectorbst/jsonschema2pojo-spring-data-couchbase)
+[![GitHub](https://img.shields.io/github/license/hectorbst/jsonschema2pojo-spring-data-couchbase?label=Licence)](LICENSE)
+
 # jsonschema2pojo-spring-data-couchbase
 
 This project is a [*jsonschema2pojo*](https://github.com/joelittlejohn/jsonschema2pojo) extension dedicated to
@@ -343,6 +347,8 @@ Here is an example of how the extension can be added to the jsonschema2pojo Mave
     </dependencies>
 </plugin>
 ```
+
+A more complete example is available [here](example).
 
 ## License
 
