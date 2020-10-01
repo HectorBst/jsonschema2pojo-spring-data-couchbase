@@ -112,7 +112,6 @@
 						<goals>
 							<goal>generate</goal>
 						</goals>
-						<phase>generate-sources</phase>
 						<configuration>
 							<sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
 							<targetPackage>org.jsonschema2pojo.springframework.data.couchbase.definitions
