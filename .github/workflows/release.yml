@@ -67,6 +67,7 @@ jobs:
         with:
           tag_name: ${{ steps.tag-version.outputs.tagName }}
           release_name: ${{ steps.tag-version.outputs.releaseVersion }}
+          body: "Hosted on [Maven Central](https://search.maven.org/artifact/io.github.hectorbst/jsonschema2pojo-spring-data-couchbase/${{ steps.tag-version.outputs.releaseVersion }}/jar)."
           draft: false
           prerelease: false
 
