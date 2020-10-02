@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Hector Basset
  */
 @RunWith(JUnitPlatform.class)
-public class CouchbaseCasRuleTest {
+class CouchbaseCasRuleTest {
 
 	static final ObjectMapper objectMapper = new ObjectMapper();
 	final JCodeModel owner = new JCodeModel();

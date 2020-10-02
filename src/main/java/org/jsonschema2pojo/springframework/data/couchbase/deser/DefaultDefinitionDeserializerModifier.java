@@ -15,6 +15,7 @@ import org.jsonschema2pojo.springframework.data.couchbase.definitions.IdPrefixDe
 import org.jsonschema2pojo.springframework.data.couchbase.definitions.IdSuffixDef;
 import org.jsonschema2pojo.springframework.data.couchbase.definitions.IndexDef;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.Map;
@@ -54,7 +55,7 @@ public class DefaultDefinitionDeserializerModifier extends BeanDeserializerModif
 	public JsonDeserializer<?> modifyDeserializer(DeserializationConfig config, BeanDescription beanDesc, JsonDeserializer<?> deserializer) {
 
 		if (defaultDefinitions.containsKey(beanDesc.getBeanClass())) {
-			return new DefaultDefinitionDeserializer<>((StdDeserializer<?>) deserializer, defaultDefinitions.get(beanDesc.getBeanClass()));
+			return new DefaultDefinitionDeserializer<>((StdDeserializer<?>) deserializer, (Serializable) defaultDefinitions.get(beanDesc.getBeanClass()));
 		}
 
 		return deserializer;

@@ -157,6 +157,7 @@
 							<annotationStyle>none</annotationStyle>
 							<useOptionalForGetters>false</useOptionalForGetters>
 							<initializeCollections>false</initializeCollections>
+							<serializable>true</serializable>
 							<formatTypeMapping>
 								<int32>java.lang.Integer</int32>
 								<int64>java.lang.Long</int64>

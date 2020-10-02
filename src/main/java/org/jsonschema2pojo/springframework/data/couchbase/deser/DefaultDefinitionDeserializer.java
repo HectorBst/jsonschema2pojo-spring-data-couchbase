@@ -7,13 +7,14 @@ import com.fasterxml.jackson.databind.deser.ResolvableDeserializer;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * Custom deserializer returning a default POJO when only a true boolean is specified in schema.
  *
  * @author Hector Basset
  */
-public class DefaultDefinitionDeserializer<T> extends StdDeserializer<T> implements ResolvableDeserializer {
+public class DefaultDefinitionDeserializer<T extends Serializable> extends StdDeserializer<T> implements ResolvableDeserializer {
 
 	private final StdDeserializer<?> defaultDeserializer;
 	private final T defaultDefinition;
@@ -25,6 +26,7 @@ public class DefaultDefinitionDeserializer<T> extends StdDeserializer<T> impleme
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public T deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
 		if (p.getCurrentToken() == null || (p.getCurrentToken().isBoolean() && !p.getBooleanValue())) {
 			return null;

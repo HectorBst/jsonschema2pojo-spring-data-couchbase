@@ -22,8 +22,8 @@ public class SpringDataCouchbaseObjectRule extends ObjectRule {
 	}
 
 	@Override
-	public JType apply(String nodeName, JsonNode node, JsonNode parent, JPackage _package, Schema schema) {
-		JType type = super.apply(nodeName, node, parent, _package, schema);
+	public JType apply(String nodeName, JsonNode node, JsonNode parent, JPackage jPackage, Schema schema) {
+		JType type = super.apply(nodeName, node, parent, jPackage, schema);
 
 		if (type instanceof JDefinedClass) {
 			JDefinedClass clazz = (JDefinedClass) type;
