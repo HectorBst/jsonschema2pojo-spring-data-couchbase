@@ -2,7 +2,7 @@
 [![Coverage](https://img.shields.io/sonar/coverage/HectorBst_jsonschema2pojo-spring-data-couchbase?server=https%3A%2F%2Fsonarcloud.io&label=Coverage)](https://sonarcloud.io/dashboard?id=HectorBst_jsonschema2pojo-spring-data-couchbase)
 [![Violations](https://img.shields.io/sonar/violations/HectorBst_jsonschema2pojo-spring-data-couchbase?server=https%3A%2F%2Fsonarcloud.io&label=Violations)](https://sonarcloud.io/dashboard?id=HectorBst_jsonschema2pojo-spring-data-couchbase)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.hectorbst/jsonschema2pojo-spring-data-couchbase?label=Maven%20Central)](https://search.maven.org/artifact/io.github.hectorbst/jsonschema2pojo-spring-data-couchbase)
-[![Licence](https://img.shields.io/github/license/hectorbst/jsonschema2pojo-spring-data-couchbase?label=Licence)](LICENSE)
+[![License](https://img.shields.io/github/license/hectorbst/jsonschema2pojo-spring-data-couchbase?label=License)](LICENSE)
 
 # jsonschema2pojo-spring-data-couchbase
 
