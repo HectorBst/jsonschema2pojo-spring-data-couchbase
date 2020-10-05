@@ -1,13 +1,14 @@
-package org.jsonschema2pojo.springframework.data.couchbase.rules;
+package io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.rules;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.sun.codemodel.JAnnotationUse;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JFieldVar;
+import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.SpringDataCouchbaseRuleFactory;
+import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.definitions.FieldDef;
+import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.definitions.IndexDef;
 import org.jsonschema2pojo.Schema;
 import org.jsonschema2pojo.rules.Rule;
-import org.jsonschema2pojo.springframework.data.couchbase.definitions.FieldDef;
-import org.jsonschema2pojo.springframework.data.couchbase.definitions.IndexDef;
 import org.springframework.data.couchbase.core.index.QueryIndexDirection;
 import org.springframework.data.couchbase.core.index.QueryIndexed;
 import org.springframework.data.couchbase.core.mapping.Field;
@@ -17,8 +18,8 @@ import org.springframework.data.couchbase.core.mapping.id.IdSuffix;
 
 import java.util.Optional;
 
-import static org.jsonschema2pojo.springframework.data.couchbase.util.SpringDataCouchbaseHelper.JSON_KEY_INTERNAL_FIELD_EXCLUSIVITY;
-import static org.jsonschema2pojo.springframework.data.couchbase.util.SpringDataCouchbaseHelper.handleFieldMetadataExclusivity;
+import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.util.SpringDataCouchbaseHelper.JSON_KEY_INTERNAL_FIELD_EXCLUSIVITY;
+import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.util.SpringDataCouchbaseHelper.handleFieldMetadataExclusivity;
 
 /**
  * @author Hector Basset

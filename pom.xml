@@ -140,7 +140,8 @@
 						</goals>
 						<configuration>
 							<sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
-							<targetPackage>org.jsonschema2pojo.springframework.data.couchbase.definitions
+							<targetPackage>
+								io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.definitions
 							</targetPackage>
 							<classNameSuffix>Def</classNameSuffix>
 							<generateBuilders>false</generateBuilders>

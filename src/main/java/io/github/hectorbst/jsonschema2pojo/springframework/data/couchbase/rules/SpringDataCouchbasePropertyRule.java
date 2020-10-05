@@ -1,8 +1,9 @@
-package org.jsonschema2pojo.springframework.data.couchbase.rules;
+package io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.rules;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JFieldVar;
+import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.SpringDataCouchbaseRuleFactory;
 import org.jsonschema2pojo.Schema;
 import org.jsonschema2pojo.rules.PropertyRule;
 

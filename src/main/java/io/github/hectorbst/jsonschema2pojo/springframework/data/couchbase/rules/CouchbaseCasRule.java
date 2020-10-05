@@ -1,15 +1,16 @@
-package org.jsonschema2pojo.springframework.data.couchbase.rules;
+package io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.rules;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.sun.codemodel.JFieldVar;
+import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.SpringDataCouchbaseRuleFactory;
+import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.definitions.CasDef;
 import org.jsonschema2pojo.Schema;
 import org.jsonschema2pojo.rules.Rule;
-import org.jsonschema2pojo.springframework.data.couchbase.definitions.CasDef;
 import org.springframework.data.annotation.Version;
 
 import java.util.Optional;
 
-import static org.jsonschema2pojo.springframework.data.couchbase.util.SpringDataCouchbaseHelper.handleFieldMetadataExclusivity;
+import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.util.SpringDataCouchbaseHelper.handleFieldMetadataExclusivity;
 
 /**
  * @author Hector Basset

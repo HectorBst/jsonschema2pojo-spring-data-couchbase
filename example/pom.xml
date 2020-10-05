@@ -13,7 +13,7 @@
 		<maven.compiler.target>11</maven.compiler.target>
 		<jsonschema2pojo.version>1.0.2</jsonschema2pojo.version>
 		<spring-boot.version>2.3.4.RELEASE</spring-boot.version>
-		<jsonschema2pojo-spring-data-couchbase.version>0.1.1</jsonschema2pojo-spring-data-couchbase.version>
+		<jsonschema2pojo-spring-data-couchbase.version>0.2.0</jsonschema2pojo-spring-data-couchbase.version>
 	</properties>
 
 	<dependencies>
@@ -59,7 +59,7 @@
 								<real>java.math.BigDecimal</real>
 							</formatTypeMapping>
 							<customRuleFactory>
-								org.jsonschema2pojo.springframework.data.couchbase.rules.SpringDataCouchbaseRuleFactory
+								io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.SpringDataCouchbaseRuleFactory
 							</customRuleFactory>
 						</configuration>
 					</execution>

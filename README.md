@@ -328,7 +328,7 @@ Here is an example of how the extension can be added to the jsonschema2pojo Mave
                 ...
                 <!-- Extension RuleFactory -->
                 <customRuleFactory>
-                    org.jsonschema2pojo.springframework.data.couchbase.rules.SpringDataCouchbaseRuleFactory
+                    io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.SpringDataCouchbaseRuleFactory
                 </customRuleFactory>
             </configuration>
         </execution>

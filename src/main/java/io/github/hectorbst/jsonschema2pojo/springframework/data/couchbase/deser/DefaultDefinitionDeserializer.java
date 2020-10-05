@@ -1,4 +1,4 @@
-package org.jsonschema2pojo.springframework.data.couchbase.deser;
+package io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.deser;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

@@ -1,9 +1,10 @@
-package org.jsonschema2pojo.springframework.data.couchbase.rules;
+package io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.rules;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JPackage;
 import com.sun.codemodel.JType;
+import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.SpringDataCouchbaseRuleFactory;
 import org.jsonschema2pojo.Schema;
 import org.jsonschema2pojo.rules.ObjectRule;
 
@@ -16,7 +17,7 @@ public class SpringDataCouchbaseObjectRule extends ObjectRule {
 
 	private final SpringDataCouchbaseRuleFactory ruleFactory;
 
-	protected SpringDataCouchbaseObjectRule(SpringDataCouchbaseRuleFactory ruleFactory) {
+	public SpringDataCouchbaseObjectRule(SpringDataCouchbaseRuleFactory ruleFactory) {
 		super(ruleFactory, ruleFactory.getParcelableHelper(), ruleFactory.getReflectionHelper());
 		this.ruleFactory = ruleFactory;
 	}

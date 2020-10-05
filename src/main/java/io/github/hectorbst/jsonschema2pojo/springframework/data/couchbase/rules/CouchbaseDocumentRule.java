@@ -1,13 +1,14 @@
-package org.jsonschema2pojo.springframework.data.couchbase.rules;
+package io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.rules;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.sun.codemodel.JAnnotationArrayMember;
 import com.sun.codemodel.JAnnotationUse;
 import com.sun.codemodel.JDefinedClass;
+import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.SpringDataCouchbaseRuleFactory;
+import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.definitions.CompositeIndexDef;
+import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.definitions.DocumentDef;
 import org.jsonschema2pojo.Schema;
 import org.jsonschema2pojo.rules.Rule;
-import org.jsonschema2pojo.springframework.data.couchbase.definitions.CompositeIndexDef;
-import org.jsonschema2pojo.springframework.data.couchbase.definitions.DocumentDef;
 import org.springframework.data.couchbase.core.index.CompositeQueryIndex;
 import org.springframework.data.couchbase.core.mapping.Document;
 

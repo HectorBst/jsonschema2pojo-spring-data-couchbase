@@ -1,4 +1,4 @@
-package org.jsonschema2pojo.springframework.data.couchbase.util;
+package io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
