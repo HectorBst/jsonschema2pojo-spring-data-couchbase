@@ -1,0 +1,108 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"title": "User",
+	"type": "object",
+	"x-cb-document": {
+		"compositeIndexes": [
+			{
+				"fields": [
+					"firstName",
+					"lastName"
+				]
+			}
+		]
+	},
+	"properties": {
+		"id": {
+			"title": "Document id",
+			"type": "string",
+			"format": "uuid",
+			"x-cb-id": {
+				"generated": {
+					"delimiter": "::",
+					"strategy": "UNIQUE"
+				}
+			}
+		},
+		"cas": {
+			"title": "Document CAS",
+			"type": "integer",
+			"format": "int64",
+			"x-cb-cas": true
+		},
+		"firstName": {
+			"title": "User first name",
+			"type": "string"
+		},
+		"lastName": {
+			"title": "User last name",
+			"type": "string"
+		},
+		"emailAddress": {
+			"title": "User last name",
+			"type": "string",
+			"x-cb-field": {
+				"index": true
+			}
+		},
+		"address": {
+			"title": "Address",
+			"type": "object",
+			"x-cb-join": {
+				"on": "rks.ownerId = meta(lks).id"
+			},
+			"x-cb-document": true,
+			"properties": {
+				"id": {
+					"title": "Document id",
+					"type": "string",
+					"x-cb-id": {
+						"generated": {
+							"delimiter": "::",
+							"strategy": "UNIQUE"
+						}
+					}
+				},
+				"cas": {
+					"title": "Document CAS",
+					"type": "integer",
+					"format": "int64",
+					"x-cb-cas": true
+				},
+				"ownerId": {
+					"title": "Address owner id",
+					"type": "string",
+					"format": "uuid",
+					"x-cb-field": {
+						"index": true
+					}
+				},
+				"street": {
+					"title": "Address street",
+					"type": "string"
+				},
+				"zipCode": {
+					"title": "Address zip code",
+					"type": "string"
+				},
+				"city": {
+					"title": "Address city",
+					"type": "string",
+					"x-cb-field": {
+						"index": true
+					}
+				}
+			}
+		},
+		"purchases": {
+			"title": "User purchases",
+			"type": "array",
+			"x-cb-join": {
+				"on": "rks.buyerId = meta(lks).id"
+			},
+			"items": {
+				"existingJavaType": "Purchase"
+			}
+		}
+	}
+}
