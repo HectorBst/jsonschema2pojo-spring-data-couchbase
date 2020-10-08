@@ -42,6 +42,7 @@
 		<spring-boot.version>2.3.4.RELEASE</spring-boot.version>
 		<junit.version>5.7.0</junit.version>
 		<assertj.version>3.17.2</assertj.version>
+		<mockito.version>3.5.13</mockito.version>
 		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
 		<maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
 		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
@@ -91,6 +92,13 @@
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
 			<version>${assertj.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -157,11 +165,18 @@
 							<useOptionalForGetters>false</useOptionalForGetters>
 							<initializeCollections>false</initializeCollections>
 							<serializable>true</serializable>
+							<includeConstructors>true</includeConstructors>
 							<formatTypeMapping>
 								<int32>java.lang.Integer</int32>
 								<int64>java.lang.Long</int64>
 								<float32>java.lang.Float</float32>
 								<float64>java.lang.Double</float64>
+								<timeUnit>java.util.concurrent.TimeUnit</timeUnit>
+								<generationStrategy>
+									org.springframework.data.couchbase.core.mapping.id.GenerationStrategy
+								</generationStrategy>
+								<queryIndexDirection>org.springframework.data.couchbase.core.index.QueryIndexDirection
+								</queryIndexDirection>
 							</formatTypeMapping>
 						</configuration>
 					</execution>

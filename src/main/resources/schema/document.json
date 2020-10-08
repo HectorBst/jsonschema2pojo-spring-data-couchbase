@@ -11,15 +11,7 @@
 		},
 		"expiryUnit": {
 			"type": "string",
-			"enum": [
-				"NANOSECONDS",
-				"MICROSECONDS",
-				"MILLISECONDS",
-				"SECONDS",
-				"MINUTES",
-				"HOURS",
-				"DAYS"
-			]
+			"format": "timeUnit"
 		},
 		"touchOnRead": {
 			"type": "boolean"

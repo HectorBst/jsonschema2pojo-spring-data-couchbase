@@ -1,25 +1,16 @@
 {
 	"$schema": "https://json-schema.org/draft-07/schema#",
-	"title": "User",
+	"title": "Address",
 	"type": "object",
-	"x-cb-document": {
-		"compositeIndexes": [
-			{
-				"fields": [
-					"firstName",
-					"lastName"
-				]
-			}
-		]
-	},
+	"x-cb-document": true,
 	"properties": {
 		"id": {
-			"title": "User id",
+			"title": "Document id",
 			"type": "string",
 			"x-cb-id": {
 				"generated": {
 					"delimiter": "::",
-					"strategy": "UNIQUE"
+					"strategy": "USE_ATTRIBUTES"
 				}
 			}
 		},
@@ -32,23 +23,28 @@
 		"idPrefix": {
 			"title": "Id prefix",
 			"type": "string",
-			"default": "user",
+			"default": "address",
 			"x-cb-idPrefix": true
 		},
-		"firstName": {
-			"title": "User first name",
-			"type": "string"
-		},
-		"lastName": {
-			"title": "User last name",
-			"type": "string"
-		},
-		"emailAddress": {
-			"title": "User last name",
+		"userId": {
+			"title": "Address user id",
 			"type": "string",
+			"default": "address",
 			"x-cb-field": {
-				"index": true
+				"idAttribute": true
 			}
+		},
+		"street": {
+			"title": "Address street",
+			"type": "string"
+		},
+		"zipCode": {
+			"title": "Address zip code",
+			"type": "string"
+		},
+		"city": {
+			"title": "Address city",
+			"type": "string"
 		}
 	}
 }

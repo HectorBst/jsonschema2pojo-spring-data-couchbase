@@ -1,10 +1,10 @@
 package io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.example;
 
 import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.example.data.AddressRepository;
-import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.example.data.PurchaseRepository;
+import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.example.data.PetRepository;
 import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.example.data.UserRepository;
 import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.example.domain.Address;
-import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.example.domain.Purchase;
+import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.example.domain.Pet;
 import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.example.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,13 +23,17 @@ public class Example {
 
 	private final UserRepository userRepository;
 	private final AddressRepository addressRepository;
-	private final PurchaseRepository purchaseRepository;
+	private final PetRepository petRepository;
 
 	@Autowired
-	public Example(UserRepository userRepository, AddressRepository addressRepository, PurchaseRepository purchaseRepository) {
+	public Example(
+			UserRepository userRepository,
+			AddressRepository addressRepository,
+			PetRepository petRepository
+	) {
 		this.userRepository = userRepository;
 		this.addressRepository = addressRepository;
-		this.purchaseRepository = purchaseRepository;
+		this.petRepository = petRepository;
 	}
 
 	@PostConstruct
@@ -44,7 +48,7 @@ public class Example {
 		log.info(user.toString());
 
 		Address address = new Address()
-				.withOwnerId(user.getId())
+				.withUserId(user.getId())
 				.withStreet("Example Street")
 				.withZipCode("ZIP")
 				.withCity("Test city");
@@ -52,20 +56,24 @@ public class Example {
 		address = addressRepository.save(address);
 		log.info(address.toString());
 
-		Purchase purchase1 = new Purchase()
-				.withBuyerId(user.getId())
-				.withTitle("Purchase 1")
-				.withDescription("Description 1");
-		log.info(purchase1.toString());
-		purchaseRepository.save(purchase1);
-		log.info(purchase1.toString());
+		Pet cat = new Pet()
+				.withUserId(user.getId())
+				.withName("Cat Example")
+				.withDescription("Description 1")
+				.withType(Pet.Type.CAT);
+		log.info(cat.toString());
+		petRepository.save(cat);
+		log.info(cat.toString());
 
-		Purchase purchase2 = new Purchase()
-				.withBuyerId(user.getId())
-				.withTitle("Purchase 2")
-				.withDescription("Description 2");
-		log.info(purchase2.toString());
-		purchaseRepository.save(purchase2);
-		log.info(purchase2.toString());
+		Pet dog = new Pet()
+				.withUserId(user.getId())
+				.withName("Dog Example")
+				.withDescription("Description 2")
+				.withType(Pet.Type.DOG);
+		log.info(dog.toString());
+		petRepository.save(dog);
+		log.info(dog.toString());
+
+		log.info(petRepository.findAllByUserId(user.getId()).toString());
 	}
 }

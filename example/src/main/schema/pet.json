@@ -1,20 +1,11 @@
 {
 	"$schema": "https://json-schema.org/draft-07/schema#",
-	"title": "User",
+	"title": "Pet",
 	"type": "object",
-	"x-cb-document": {
-		"compositeIndexes": [
-			{
-				"fields": [
-					"firstName",
-					"lastName"
-				]
-			}
-		]
-	},
+	"x-cb-document": true,
 	"properties": {
 		"id": {
-			"title": "User id",
+			"title": "Purchase id",
 			"type": "string",
 			"x-cb-id": {
 				"generated": {
@@ -32,23 +23,35 @@
 		"idPrefix": {
 			"title": "Id prefix",
 			"type": "string",
-			"default": "user",
+			"default": "pet",
 			"x-cb-idPrefix": true
 		},
-		"firstName": {
-			"title": "User first name",
-			"type": "string"
-		},
-		"lastName": {
-			"title": "User last name",
-			"type": "string"
-		},
-		"emailAddress": {
-			"title": "User last name",
+		"userId": {
+			"title": "Owner user id",
 			"type": "string",
 			"x-cb-field": {
 				"index": true
 			}
+		},
+		"name": {
+			"title": "Pet name",
+			"type": "string"
+		},
+		"description": {
+			"title": "Pet description",
+			"type": "string"
+		},
+		"type": {
+			"title": "Pet type",
+			"type": "string",
+			"enum": [
+				"CAT",
+				"DOG",
+				"FERRET",
+				"GUINEA_PIG",
+				"HAMSTER",
+				"RABBIT"
+			]
 		}
 	}
 }
