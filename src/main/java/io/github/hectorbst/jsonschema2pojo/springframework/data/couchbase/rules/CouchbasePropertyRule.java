@@ -56,26 +56,26 @@ public class CouchbasePropertyRule extends PropertyRule {
 		String propertyName = ruleFactory.getNameHelper().getPropertyName(nodeName, node);
 		JFieldVar field = clazz.fields().get(propertyName);
 
-		handleCouchbase(clazz, field, propertySchema);
+		handleCouchbase(field, propertySchema);
 
 		return clazz;
 	}
 
-	protected void handleCouchbase(JDefinedClass clazz, JFieldVar field, Schema schema) {
-		handleCouchbaseCas(clazz, field, schema);
-		handleCouchbaseId(clazz, field, schema);
-		handleCouchbaseField(clazz, field, schema);
-		handleCouchbaseIdPrefix(clazz, field, schema);
-		handleCouchbaseIdSuffix(clazz, field, schema);
+	protected void handleCouchbase(JFieldVar field, Schema schema) {
+		handleCouchbaseCas(field, schema);
+		handleCouchbaseId(field, schema);
+		handleCouchbaseField(field, schema);
+		handleCouchbaseIdPrefix(field, schema);
+		handleCouchbaseIdSuffix(field, schema);
 	}
 
-	protected void handleCouchbaseCas(JDefinedClass clazz, JFieldVar field, Schema schema) {
+	protected void handleCouchbaseCas(JFieldVar field, Schema schema) {
 		if (field != null && CAS.is(schema)) {
 			field.annotate(Version.class);
 		}
 	}
 
-	protected void handleCouchbaseField(JDefinedClass clazz, JFieldVar field, Schema schema) {
+	protected void handleCouchbaseField(JFieldVar field, Schema schema) {
 		if (field != null && FIELD.is(schema)) {
 			FieldDef fieldDef = FIELD.get(schema, ruleFactory);
 
@@ -87,13 +87,13 @@ public class CouchbasePropertyRule extends PropertyRule {
 			Optional.ofNullable(fieldDef.getOrder())
 					.ifPresent(order -> annotation.param("order", order));
 
-			handleFieldIdAttribute(clazz, field, fieldDef.getIdAttribute());
+			handleFieldIdAttribute(field, fieldDef.getIdAttribute());
 
-			handleFieldIndex(clazz, field, fieldDef.getIndex());
+			handleFieldIndex(field, fieldDef.getIndex());
 		}
 	}
 
-	protected void handleFieldIdAttribute(JDefinedClass clazz, JFieldVar field, IdAttributeDef idAttributeDef) {
+	protected void handleFieldIdAttribute(JFieldVar field, IdAttributeDef idAttributeDef) {
 		Optional.ofNullable(idAttributeDef)
 				.ifPresent(idAttribute -> {
 					JAnnotationUse annotation = field.annotate(IdAttribute.class);
@@ -103,7 +103,7 @@ public class CouchbasePropertyRule extends PropertyRule {
 				});
 	}
 
-	protected void handleFieldIndex(JDefinedClass clazz, JFieldVar field, IndexDef indexDef) {
+	protected void handleFieldIndex(JFieldVar field, IndexDef indexDef) {
 		Optional.ofNullable(indexDef)
 				.ifPresent(index -> {
 					JAnnotationUse annotation = field.annotate(QueryIndexed.class);
@@ -116,17 +116,17 @@ public class CouchbasePropertyRule extends PropertyRule {
 				});
 	}
 
-	protected void handleCouchbaseId(JDefinedClass clazz, JFieldVar field, Schema schema) {
+	protected void handleCouchbaseId(JFieldVar field, Schema schema) {
 		if (field != null && ID.is(schema)) {
 			IdDef id = ID.get(schema, ruleFactory);
 
 			field.annotate(Id.class);
 
-			handleIdGenerated(clazz, field, id.getGenerated());
+			handleIdGenerated(field, id.getGenerated());
 		}
 	}
 
-	protected void handleIdGenerated(JDefinedClass clazz, JFieldVar field, GeneratedDef generatedDef) {
+	protected void handleIdGenerated(JFieldVar field, GeneratedDef generatedDef) {
 		Optional.ofNullable(generatedDef)
 				.ifPresent(generated -> {
 					JAnnotationUse annotation = field.annotate(GeneratedValue.class);
@@ -139,7 +139,7 @@ public class CouchbasePropertyRule extends PropertyRule {
 				});
 	}
 
-	protected void handleCouchbaseIdPrefix(JDefinedClass clazz, JFieldVar field, Schema schema) {
+	protected void handleCouchbaseIdPrefix(JFieldVar field, Schema schema) {
 		if (field != null && ID_PREFIX.is(schema)) {
 			IdPrefixDef idPrefix = ID_PREFIX.get(schema, ruleFactory);
 
@@ -150,7 +150,7 @@ public class CouchbasePropertyRule extends PropertyRule {
 		}
 	}
 
-	protected void handleCouchbaseIdSuffix(JDefinedClass clazz, JFieldVar field, Schema schema) {
+	protected void handleCouchbaseIdSuffix(JFieldVar field, Schema schema) {
 		if (field != null && ID_SUFFIX.is(schema)) {
 			IdSuffixDef idSuffix = ID_SUFFIX.get(schema, ruleFactory);
 

@@ -35,7 +35,7 @@ class DefaultDefinitionDeserializerModifierTest {
 
 	@ParameterizedTest
 	@MethodSource("defaultDefinitionsClasses")
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	void when_definition_with_default_must_return_custom_deserializer(Class<?> clazz) {
 
 		// Given
@@ -57,7 +57,7 @@ class DefaultDefinitionDeserializerModifierTest {
 
 	@ParameterizedTest
 	@MethodSource("classesWithoutDefaultDefinitions")
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	void when_type_not_being_definition_with_default_must_return_native_deserializer(Class<?> clazz) {
 
 		// Given

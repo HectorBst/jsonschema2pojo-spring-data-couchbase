@@ -61,7 +61,7 @@ class CouchbasePropertyRuleTest {
 		content.put(CAS.getJsonKey(), false);
 
 		// When
-		couchbasePropertyRule.handleCouchbaseCas(clazz, field, schema);
+		couchbasePropertyRule.handleCouchbaseCas(field, schema);
 
 		// Then
 		assertThat(field.annotations()).isEmpty();
@@ -74,7 +74,7 @@ class CouchbasePropertyRuleTest {
 		content.put(CAS.getJsonKey(), true);
 
 		// When
-		couchbasePropertyRule.handleCouchbaseCas(clazz, field, schema);
+		couchbasePropertyRule.handleCouchbaseCas(field, schema);
 
 		// Then
 		assertThat(field.annotations())
@@ -90,7 +90,7 @@ class CouchbasePropertyRuleTest {
 		content.put(ID.getJsonKey(), false);
 
 		// When
-		couchbasePropertyRule.handleCouchbaseId(clazz, field, schema);
+		couchbasePropertyRule.handleCouchbaseId(field, schema);
 
 		// Then
 		assertThat(field.annotations()).isEmpty();
@@ -103,7 +103,7 @@ class CouchbasePropertyRuleTest {
 		content.put(ID.getJsonKey(), true);
 
 		// When
-		couchbasePropertyRule.handleCouchbaseId(clazz, field, schema);
+		couchbasePropertyRule.handleCouchbaseId(field, schema);
 
 		// Then
 		assertThat(field.annotations())
@@ -118,7 +118,7 @@ class CouchbasePropertyRuleTest {
 		// Given
 
 		// When
-		couchbasePropertyRule.handleIdGenerated(clazz, field, null);
+		couchbasePropertyRule.handleIdGenerated(field, null);
 
 		// Then
 		assertThat(field.annotations()).isEmpty();
@@ -131,7 +131,7 @@ class CouchbasePropertyRuleTest {
 		GeneratedDef generated = new GeneratedDef();
 
 		// When
-		couchbasePropertyRule.handleIdGenerated(clazz, field, generated);
+		couchbasePropertyRule.handleIdGenerated(field, generated);
 
 		// Then
 		assertThat(field.annotations())
@@ -147,7 +147,7 @@ class CouchbasePropertyRuleTest {
 		GeneratedDef generated = new GeneratedDef("::", GenerationStrategy.UNIQUE);
 
 		// When
-		couchbasePropertyRule.handleIdGenerated(clazz, field, generated);
+		couchbasePropertyRule.handleIdGenerated(field, generated);
 
 		// Then
 		assertThat(field.annotations())
@@ -164,7 +164,7 @@ class CouchbasePropertyRuleTest {
 		content.put(ID_PREFIX.getJsonKey(), false);
 
 		// When
-		couchbasePropertyRule.handleCouchbaseIdPrefix(clazz, field, schema);
+		couchbasePropertyRule.handleCouchbaseIdPrefix(field, schema);
 
 		// Then
 		assertThat(field.annotations()).isEmpty();
@@ -177,7 +177,7 @@ class CouchbasePropertyRuleTest {
 		content.put(ID_PREFIX.getJsonKey(), true);
 
 		// When
-		couchbasePropertyRule.handleCouchbaseIdPrefix(clazz, field, schema);
+		couchbasePropertyRule.handleCouchbaseIdPrefix(field, schema);
 
 		// Then
 		assertThat(field.annotations())
@@ -194,7 +194,7 @@ class CouchbasePropertyRuleTest {
 		node.put("order", 1);
 
 		// When
-		couchbasePropertyRule.handleCouchbaseIdPrefix(clazz, field, schema);
+		couchbasePropertyRule.handleCouchbaseIdPrefix(field, schema);
 
 		// Then
 		assertThat(field.annotations())
@@ -211,7 +211,7 @@ class CouchbasePropertyRuleTest {
 		content.put(ID_SUFFIX.getJsonKey(), false);
 
 		// When
-		couchbasePropertyRule.handleCouchbaseIdSuffix(clazz, field, schema);
+		couchbasePropertyRule.handleCouchbaseIdSuffix(field, schema);
 
 		// Then
 		assertThat(field.annotations()).isEmpty();
@@ -224,7 +224,7 @@ class CouchbasePropertyRuleTest {
 		content.put(ID_SUFFIX.getJsonKey(), true);
 
 		// When
-		couchbasePropertyRule.handleCouchbaseIdSuffix(clazz, field, schema);
+		couchbasePropertyRule.handleCouchbaseIdSuffix(field, schema);
 
 		// Then
 		assertThat(field.annotations())
@@ -241,7 +241,7 @@ class CouchbasePropertyRuleTest {
 		node.put("order", 1);
 
 		// When
-		couchbasePropertyRule.handleCouchbaseIdSuffix(clazz, field, schema);
+		couchbasePropertyRule.handleCouchbaseIdSuffix(field, schema);
 
 		// Then
 		assertThat(field.annotations())
@@ -258,7 +258,7 @@ class CouchbasePropertyRuleTest {
 		content.put(FIELD.getJsonKey(), false);
 
 		// When
-		couchbasePropertyRule.handleCouchbaseField(clazz, field, schema);
+		couchbasePropertyRule.handleCouchbaseField(field, schema);
 
 		// Then
 		assertThat(field.annotations()).isEmpty();
@@ -271,7 +271,7 @@ class CouchbasePropertyRuleTest {
 		content.put(FIELD.getJsonKey(), true);
 
 		// When
-		couchbasePropertyRule.handleCouchbaseField(clazz, field, schema);
+		couchbasePropertyRule.handleCouchbaseField(field, schema);
 
 		// Then
 		assertThat(field.annotations())
@@ -289,7 +289,7 @@ class CouchbasePropertyRuleTest {
 		node.put("order", 1);
 
 		// When
-		couchbasePropertyRule.handleCouchbaseField(clazz, field, schema);
+		couchbasePropertyRule.handleCouchbaseField(field, schema);
 
 		// Then
 		assertThat(field.annotations())
@@ -305,7 +305,7 @@ class CouchbasePropertyRuleTest {
 		// Given
 
 		// When
-		couchbasePropertyRule.handleFieldIdAttribute(clazz, field, null);
+		couchbasePropertyRule.handleFieldIdAttribute(field, null);
 
 		// Then
 		assertThat(field.annotations()).isEmpty();
@@ -318,7 +318,7 @@ class CouchbasePropertyRuleTest {
 		IdAttributeDef idAttribute = new IdAttributeDef();
 
 		// When
-		couchbasePropertyRule.handleFieldIdAttribute(clazz, field, idAttribute);
+		couchbasePropertyRule.handleFieldIdAttribute(field, idAttribute);
 
 		// Then
 		assertThat(field.annotations())
@@ -334,7 +334,7 @@ class CouchbasePropertyRuleTest {
 		IdAttributeDef idAttribute = new IdAttributeDef(1);
 
 		// When
-		couchbasePropertyRule.handleFieldIdAttribute(clazz, field, idAttribute);
+		couchbasePropertyRule.handleFieldIdAttribute(field, idAttribute);
 
 		// Then
 		assertThat(field.annotations())
@@ -350,7 +350,7 @@ class CouchbasePropertyRuleTest {
 		// Given
 
 		// When
-		couchbasePropertyRule.handleFieldIndex(clazz, field, null);
+		couchbasePropertyRule.handleFieldIndex(field, null);
 
 		// Then
 		assertThat(field.annotations()).isEmpty();
@@ -363,7 +363,7 @@ class CouchbasePropertyRuleTest {
 		IndexDef index = new IndexDef();
 
 		// When
-		couchbasePropertyRule.handleFieldIndex(clazz, field, index);
+		couchbasePropertyRule.handleFieldIndex(field, index);
 
 		// Then
 		assertThat(field.annotations())
@@ -379,7 +379,7 @@ class CouchbasePropertyRuleTest {
 		IndexDef index = new IndexDef(QueryIndexDirection.ASCENDING, "test");
 
 		// When
-		couchbasePropertyRule.handleFieldIndex(clazz, field, index);
+		couchbasePropertyRule.handleFieldIndex(field, index);
 
 		// Then
 		assertThat(field.annotations())
