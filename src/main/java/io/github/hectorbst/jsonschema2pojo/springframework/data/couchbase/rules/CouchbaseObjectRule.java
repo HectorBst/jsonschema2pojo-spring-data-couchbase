@@ -39,7 +39,7 @@ public class CouchbaseObjectRule extends ObjectRule {
 
 	@Override
 	public JType apply(String nodeName, JsonNode node, JsonNode parent, JPackage jPackage, Schema schema) {
-		Definition.setAllMissingValues(schema);
+		Definition.fillAllMissingValues(schema);
 
 		JType type = super.apply(nodeName, node, parent, jPackage, schema);
 

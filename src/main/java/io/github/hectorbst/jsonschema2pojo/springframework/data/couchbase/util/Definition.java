@@ -51,8 +51,8 @@ public enum Definition {
 	private final Predicate<Schema> defaultValueGetter;
 	private final Class<? extends Serializable> pojoClass;
 
-	public static void setAllMissingValues(Schema schema) {
-		Arrays.stream(values()).forEach(def -> def.setMissing(schema));
+	public static void fillAllMissingValues(Schema schema) {
+		Arrays.stream(values()).forEach(def -> def.fillMissingValue(schema));
 	}
 
 	public String getJsonKey() {
@@ -77,7 +77,7 @@ public enum Definition {
 		}
 	}
 
-	public void setMissing(Schema schema) {
+	public void fillMissingValue(Schema schema) {
 		ObjectNode content = (ObjectNode) schema.getContent();
 		JsonNode value = content.path(jsonKey);
 

@@ -1,8 +1,7 @@
-package io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.test;
+package io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.tests;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.NullNode;
@@ -23,15 +22,10 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 /**
  * @author Hector Basset
  */
-public class TestUtil {
+public class TestsUtil {
 
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-	private static final ArrayNode EMPTY_ARRAY_NODE = OBJECT_MAPPER.createArrayNode();
 	private static final ObjectNode EMPTY_OBJECT_NODE = OBJECT_MAPPER.createObjectNode();
-
-	public static ArrayNode emptyArrayNode() {
-		return EMPTY_ARRAY_NODE.deepCopy();
-	}
 
 	public static ObjectNode emptyObjectNode() {
 		return EMPTY_OBJECT_NODE.deepCopy();

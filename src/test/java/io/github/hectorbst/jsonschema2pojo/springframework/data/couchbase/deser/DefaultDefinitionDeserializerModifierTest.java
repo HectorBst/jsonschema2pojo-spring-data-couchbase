@@ -27,6 +27,7 @@ class DefaultDefinitionDeserializerModifierTest {
 
 	final DefaultDefinitionDeserializerModifier defaultDefinitionDeserializerModifier = new DefaultDefinitionDeserializerModifier();
 	final JsonDeserializer<?> defaultJsonDeserializer = mock(StdDeserializer.class);
+	final BeanDescription beanDescription = mock(BeanDescription.class);
 
 	static Stream<Class<? extends Serializable>> defaultDefinitionsClasses() {
 		return DefaultDefinitionDeserializerModifier.DEFAULT_DEFINITIONS.keySet().stream();
@@ -35,10 +36,9 @@ class DefaultDefinitionDeserializerModifierTest {
 	@ParameterizedTest
 	@MethodSource("defaultDefinitionsClasses")
 	@SuppressWarnings("unchecked")
-	void when_definition_with_default_must_return_custom_deserializer(Class<? extends Serializable> clazz) {
+	void when_definition_with_default_must_return_custom_deserializer(Class<?> clazz) {
 
 		// Given
-		BeanDescription beanDescription = mock(BeanDescription.class);
 		when(beanDescription.getBeanClass()).thenReturn((Class) clazz);
 
 		// When
@@ -57,10 +57,10 @@ class DefaultDefinitionDeserializerModifierTest {
 
 	@ParameterizedTest
 	@MethodSource("classesWithoutDefaultDefinitions")
+	@SuppressWarnings("unchecked")
 	void when_type_not_being_definition_with_default_must_return_native_deserializer(Class<?> clazz) {
 
 		// Given
-		BeanDescription beanDescription = mock(BeanDescription.class);
 		when(beanDescription.getBeanClass()).thenReturn((Class) clazz);
 
 		// When

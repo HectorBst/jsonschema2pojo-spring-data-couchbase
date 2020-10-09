@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft-07/schema#",
-	"title": "Sample entity",
+	"title": "Sample entity with parameters for Couchbase related elements",
 	"type": "object",
 	"x-cb-document": {
 		"expiry": 2,
@@ -24,12 +24,11 @@
 			"format": "int64",
 			"x-cb-cas": true
 		},
-		"prefix": {
+		"typePrefix": {
 			"title": "An sample id prefix",
 			"type": "string",
-			"x-cb-field": {
-				"idPrefix": true
-			}
+			"default": "exampleEntity",
+			"x-cb-idPrefix": true
 		},
 		"theKey": {
 			"title": "An sample id attribute",
@@ -47,19 +46,19 @@
 				}
 			}
 		},
-		"suffix": {
+		"keySuffix": {
 			"title": "An sample id suffix",
 			"type": "string",
-			"x-cb-field": {
-				"idSuffix": true
+			"x-cb-idSuffix": {
+				"order": 1
 			}
 		},
-		"sample": {
+		"oneField": {
 			"title": "An sample field",
 			"type": "string",
 			"x-cb-field": {
 				"name": "persistedName",
-				"order": 5
+				"order": 2
 			}
 		}
 	}

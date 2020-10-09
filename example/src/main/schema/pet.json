@@ -2,14 +2,23 @@
 	"$schema": "https://json-schema.org/draft-07/schema#",
 	"title": "Pet",
 	"type": "object",
-	"x-cb-document": true,
+	"x-cb-document": {
+		"compositeIndexes": [
+			{
+				"fields": [
+					"userId",
+					"type"
+				]
+			}
+		]
+	},
 	"properties": {
 		"id": {
 			"title": "Purchase id",
 			"type": "string",
 			"x-cb-id": {
 				"generated": {
-					"delimiter": "::",
+					"delimiter": "/",
 					"strategy": "UNIQUE"
 				}
 			}
@@ -23,7 +32,7 @@
 		"idPrefix": {
 			"title": "Id prefix",
 			"type": "string",
-			"default": "pet",
+			"default": "pets",
 			"x-cb-idPrefix": true
 		},
 		"userId": {

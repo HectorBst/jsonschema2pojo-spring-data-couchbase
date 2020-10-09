@@ -15,11 +15,11 @@ import org.junit.runner.RunWith;
 import org.springframework.data.couchbase.core.index.CompositeQueryIndex;
 import org.springframework.data.couchbase.core.mapping.Document;
 
+import java.net.URI;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.test.TestUtil.clazz;
-import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.test.TestUtil.emptyObjectNode;
+import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.tests.TestsUtil.clazz;
 import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.util.Definition.DOCUMENT;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
@@ -35,6 +35,8 @@ class CouchbaseObjectRuleTest {
 
 	final SpringDataCouchbaseRuleFactory ruleFactory = new SpringDataCouchbaseRuleFactory();
 	final CouchbaseObjectRule couchbaseObjectRule = new CouchbaseObjectRule(ruleFactory);
+	final ObjectNode content = ruleFactory.getObjectMapper().createObjectNode();
+	final Schema schema = new Schema(URI.create("schema"), content, null);
 	final JDefinedClass clazz = clazz();
 
 	public CouchbaseObjectRuleTest() throws JClassAlreadyExistsException {
@@ -44,9 +46,7 @@ class CouchbaseObjectRuleTest {
 	void when_handle_couchbase_document_on_non_document_must_do_nothing() {
 
 		// Given
-		ObjectNode content = emptyObjectNode();
 		content.put(DOCUMENT.getJsonKey(), false);
-		Schema schema = new Schema(null, content, null);
 
 		// When
 		couchbaseObjectRule.handleCouchbaseDocument(TEST_NODE_NAME, clazz, schema);
@@ -59,9 +59,7 @@ class CouchbaseObjectRuleTest {
 	void when_handle_couchbase_document_on_document_must_annotate() {
 
 		// Given
-		ObjectNode content = emptyObjectNode();
 		content.put(DOCUMENT.getJsonKey(), true);
-		Schema schema = new Schema(null, content, null);
 
 		// When
 		couchbaseObjectRule.handleCouchbaseDocument(TEST_NODE_NAME, clazz, schema);
@@ -77,14 +75,11 @@ class CouchbaseObjectRuleTest {
 	void when_handle_couchbase_document_on_document_with_params_must_annotate() {
 
 		// Given
-		ObjectNode document = emptyObjectNode();
-		document.put("expiry", 1);
-		document.put("expiryExpression", "test");
-		document.put("expiryUnit", TimeUnit.HOURS.name());
-		document.put("touchOnRead", true);
-		ObjectNode content = emptyObjectNode();
-		content.set(DOCUMENT.getJsonKey(), document);
-		Schema schema = new Schema(null, content, null);
+		ObjectNode node = content.with(DOCUMENT.getJsonKey());
+		node.put("expiry", 1);
+		node.put("expiryExpression", "test");
+		node.put("expiryUnit", TimeUnit.HOURS.name());
+		node.put("touchOnRead", true);
 
 		// When
 		couchbaseObjectRule.handleCouchbaseDocument(TEST_NODE_NAME, clazz, schema);
@@ -94,10 +89,7 @@ class CouchbaseObjectRuleTest {
 				.hasSize(1)
 				.first()
 				.satisfies(ann -> assertThat(ann.getAnnotationClass()).isEqualTo(clazz.owner().ref(Document.class)))
-				.satisfies(ann -> assertThat(ann.getAnnotationMembers().get("expiry")).isNotNull())
-				.satisfies(ann -> assertThat(ann.getAnnotationMembers().get("expiryExpression")).isNotNull())
-				.satisfies(ann -> assertThat(ann.getAnnotationMembers().get("expiryUnit")).isNotNull())
-				.satisfies(ann -> assertThat(ann.getAnnotationMembers().get("touchOnRead")).isNotNull());
+				.satisfies(ann -> assertThat(ann.getAnnotationMembers()).containsOnlyKeys("expiry", "expiryExpression", "expiryUnit", "touchOnRead"));
 	}
 
 	@Test
@@ -119,10 +111,10 @@ class CouchbaseObjectRuleTest {
 				.hasSize(1)
 				.first()
 				.satisfies(ann -> assertThat(ann.getAnnotationClass()).isEqualTo(clazz.owner().ref(CompositeQueryIndex.class)))
+				.satisfies(ann -> assertThat(ann.getAnnotationMembers()).containsOnlyKeys("fields", "name"))
 				.satisfies(ann -> assertThat(ann.getAnnotationMembers().get("fields")).isInstanceOfSatisfying(JAnnotationArrayMember.class,
 						m -> assertThat(m.annotations()).hasSize(2)
-				))
-				.satisfies(ann -> assertThat(ann.getAnnotationMembers().get("name")).isNotNull());
+				));
 	}
 
 	@ParameterizedTest

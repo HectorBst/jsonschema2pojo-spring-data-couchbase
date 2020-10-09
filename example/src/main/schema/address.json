@@ -2,14 +2,13 @@
 	"$schema": "https://json-schema.org/draft-07/schema#",
 	"title": "Address",
 	"type": "object",
-	"x-cb-document": true,
 	"properties": {
 		"id": {
 			"title": "Document id",
 			"type": "string",
 			"x-cb-id": {
 				"generated": {
-					"delimiter": "::",
+					"delimiter": "/",
 					"strategy": "USE_ATTRIBUTES"
 				}
 			}
@@ -20,16 +19,15 @@
 			"format": "int64",
 			"x-cb-cas": true
 		},
-		"idPrefix": {
-			"title": "Id prefix",
+		"idSuffix": {
+			"title": "Id suffix",
 			"type": "string",
 			"default": "address",
-			"x-cb-idPrefix": true
+			"x-cb-idSuffix": true
 		},
 		"userId": {
 			"title": "Address user id",
 			"type": "string",
-			"default": "address",
 			"x-cb-field": {
 				"idAttribute": true
 			}

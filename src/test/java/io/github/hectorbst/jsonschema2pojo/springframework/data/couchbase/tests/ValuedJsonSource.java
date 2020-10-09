@@ -1,4 +1,4 @@
-package io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.test;
+package io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.tests;
 
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@ArgumentsSource(NonValuedJsonArgumentsProvider.class)
-public @interface NonValuedJsonSource {
+@ArgumentsSource(ValuedJsonArgumentsProvider.class)
+public @interface ValuedJsonSource {
 
 }

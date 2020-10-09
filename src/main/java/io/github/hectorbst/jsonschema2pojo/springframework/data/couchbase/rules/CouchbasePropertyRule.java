@@ -48,14 +48,15 @@ public class CouchbasePropertyRule extends PropertyRule {
 
 	@Override
 	public JDefinedClass apply(String nodeName, JsonNode node, JsonNode parent, JDefinedClass clazz, Schema schema) {
-		Definition.setAllMissingValues(schema);
+		Schema propertySchema = schema.deriveChildSchema(node);
+		Definition.fillAllMissingValues(propertySchema);
 
 		clazz = super.apply(nodeName, node, parent, clazz, schema);
 
 		String propertyName = ruleFactory.getNameHelper().getPropertyName(nodeName, node);
 		JFieldVar field = clazz.fields().get(propertyName);
 
-		handleCouchbase(clazz, field, schema);
+		handleCouchbase(clazz, field, propertySchema);
 
 		return clazz;
 	}

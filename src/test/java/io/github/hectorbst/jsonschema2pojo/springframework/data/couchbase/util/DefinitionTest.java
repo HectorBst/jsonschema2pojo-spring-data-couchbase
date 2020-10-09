@@ -3,7 +3,8 @@ package io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.util;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.SpringDataCouchbaseRuleFactory;
-import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.test.NonValuedJsonSource;
+import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.tests.NonValuedJsonSource;
+import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.tests.ValuedJsonSource;
 import org.jsonschema2pojo.Schema;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -11,20 +12,21 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 
-import java.util.Arrays;
+import java.net.URI;
 import java.util.stream.Stream;
 
-import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.test.TestUtil.combinatorial;
-import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.test.TestUtil.nonValuedJsonValues;
-import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.test.TestUtil.trueJsonValues;
-import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.test.TestUtil.valuedJsonValueToBoolean;
-import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.test.TestUtil.valuedJsonValues;
+import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.tests.TestsUtil.combinatorial;
+import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.tests.TestsUtil.nonValuedJsonValues;
+import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.tests.TestsUtil.trueJsonValues;
+import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.tests.TestsUtil.valuedJsonValueToBoolean;
+import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.tests.TestsUtil.valuedJsonValues;
 import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.util.Definition.CAS;
 import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.util.Definition.DOCUMENT;
 import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.util.Definition.FIELD;
 import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.util.Definition.ID;
 import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.util.Definition.ID_PREFIX;
 import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.util.Definition.ID_SUFFIX;
+import static java.util.Arrays.stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -33,10 +35,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(JUnitPlatform.class)
 class DefinitionTest {
 
-	final SpringDataCouchbaseRuleFactory springDataCouchbaseRuleFactory = new SpringDataCouchbaseRuleFactory();
+	final SpringDataCouchbaseRuleFactory ruleFactory = new SpringDataCouchbaseRuleFactory();
+	final ObjectNode parentContent = ruleFactory.getObjectMapper().createObjectNode();
+	final Schema parent = new Schema(URI.create("parent"), parentContent, null);
+	final ObjectNode content = ruleFactory.getObjectMapper().createObjectNode();
+	final Schema schema = new Schema(URI.create("schema"), content, parent);
 
 	static Stream<Definition> definitions() {
-		return Arrays.stream(Definition.values());
+		return stream(Definition.values());
 	}
 
 	static Stream<Arguments> definitionsAndValued() {
@@ -52,9 +58,7 @@ class DefinitionTest {
 	void when_test_is_on_valued_value_must_return_value(Definition definition, JsonNode value) {
 
 		// Given
-		ObjectNode content = springDataCouchbaseRuleFactory.getObjectMapper().createObjectNode();
 		content.set(definition.getJsonKey(), value);
-		Schema schema = new Schema(null, content, null);
 
 		// When
 		boolean result = definition.is(schema);
@@ -68,9 +72,7 @@ class DefinitionTest {
 	void when_test_is_on_non_valued_value_must_return_default(Definition definition, JsonNode value) {
 
 		// Given
-		ObjectNode content = springDataCouchbaseRuleFactory.getObjectMapper().createObjectNode();
 		content.set(definition.getJsonKey(), value);
-		Schema schema = new Schema(null, content, null);
 
 		// When
 		boolean result = definition.is(schema);
@@ -97,9 +99,7 @@ class DefinitionTest {
 	void when_test_is_false_default_definition_on_non_valued_value_must_return_false(Definition definition, JsonNode value) {
 
 		// Given
-		ObjectNode content = springDataCouchbaseRuleFactory.getObjectMapper().createObjectNode();
 		content.set(definition.getJsonKey(), value);
-		Schema schema = new Schema(null, content, null);
 
 		// When
 		boolean result = definition.is(schema);
@@ -110,15 +110,13 @@ class DefinitionTest {
 
 	@ParameterizedTest
 	@NonValuedJsonSource
-	void when_test_is_document_at_root_on_non_valued_value_must_return_true(JsonNode value) {
+	void when_test_is_document_on_non_valued_value_at_root_must_return_true(JsonNode value) {
 
 		// Given
-		ObjectNode content = springDataCouchbaseRuleFactory.getObjectMapper().createObjectNode();
-		content.set(DOCUMENT.getJsonKey(), value);
-		Schema schema = new Schema(null, content, null);
+		parentContent.set(DOCUMENT.getJsonKey(), value);
 
 		// When
-		boolean result = DOCUMENT.is(schema);
+		boolean result = DOCUMENT.is(parent);
 
 		// Then
 		assertThat(result).isTrue();
@@ -126,13 +124,10 @@ class DefinitionTest {
 
 	@ParameterizedTest
 	@NonValuedJsonSource
-	void when_test_is_document_at_non_root_on_non_valued_value_must_return_false(JsonNode value) {
+	void when_test_is_document_on_non_valued_value_at_non_root_must_return_false(JsonNode value) {
 
 		// Given
-		Schema parent = new Schema(null, null, null);
-		ObjectNode content = springDataCouchbaseRuleFactory.getObjectMapper().createObjectNode();
 		content.set(DOCUMENT.getJsonKey(), value);
-		Schema schema = new Schema(null, content, parent);
 
 		// When
 		boolean result = DOCUMENT.is(schema);
@@ -143,15 +138,13 @@ class DefinitionTest {
 
 	@ParameterizedTest
 	@NonValuedJsonSource
-	void when_test_is_field_at_root_on_non_valued_value_must_return_false(JsonNode value) {
+	void when_test_is_field_on_non_valued_value_at_root_must_return_false(JsonNode value) {
 
 		// Given
-		ObjectNode content = springDataCouchbaseRuleFactory.getObjectMapper().createObjectNode();
-		content.set(FIELD.getJsonKey(), value);
-		Schema schema = new Schema(null, content, null);
+		parentContent.set(FIELD.getJsonKey(), value);
 
 		// When
-		boolean result = FIELD.is(schema);
+		boolean result = FIELD.is(parent);
 
 		// Then
 		assertThat(result).isFalse();
@@ -170,15 +163,11 @@ class DefinitionTest {
 
 	@ParameterizedTest
 	@MethodSource("nonValuedAndParentDefAndParentDefValue")
-	void when_test_is_field_at_non_root_within_document_or_field_on_non_valued_value_must_return_true(JsonNode value, Definition parentDef, JsonNode parentDefValue) {
+	void when_test_is_field_on_non_valued_value_at_non_root_within_document_or_field_must_return_true(JsonNode value, Definition parentDef, JsonNode parentDefValue) {
 
 		// Given
-		ObjectNode parentContent = springDataCouchbaseRuleFactory.getObjectMapper().createObjectNode();
 		parentContent.set(parentDef.getJsonKey(), parentDefValue);
-		Schema parent = new Schema(null, parentContent, null);
-		ObjectNode content = springDataCouchbaseRuleFactory.getObjectMapper().createObjectNode();
 		content.set(FIELD.getJsonKey(), value);
-		Schema schema = new Schema(null, content, parent);
 
 		// When
 		boolean result = FIELD.is(schema);
@@ -200,11 +189,8 @@ class DefinitionTest {
 	void when_test_is_field_with_any_other_definition_on_non_valued_value_must_return_false(JsonNode value, Definition otherDef, JsonNode otherDefValue) {
 
 		// Given
-		Schema parent = new Schema(null, springDataCouchbaseRuleFactory.getObjectMapper().createObjectNode(), null);
-		ObjectNode content = springDataCouchbaseRuleFactory.getObjectMapper().createObjectNode();
 		content.set(FIELD.getJsonKey(), value);
 		content.set(otherDef.getJsonKey(), otherDefValue);
-		Schema schema = new Schema(null, content, parent);
 
 		// When
 		boolean result = FIELD.is(schema);
@@ -215,16 +201,12 @@ class DefinitionTest {
 
 	@ParameterizedTest
 	@NonValuedJsonSource
-	void when_test_is_field_within_non_document_and_non_field_on_non_valued_value_must_return_false(JsonNode value) {
+	void when_test_is_field_on_non_valued_value_at_non_root_within_non_document_and_non_field_must_return_false(JsonNode value) {
 
 		// Given
-		ObjectNode parentContent = springDataCouchbaseRuleFactory.getObjectMapper().createObjectNode();
 		parentContent.put(DOCUMENT.getJsonKey(), false);
 		parentContent.put(FIELD.getJsonKey(), false);
-		Schema parent = new Schema(null, parentContent, null);
-		ObjectNode content = springDataCouchbaseRuleFactory.getObjectMapper().createObjectNode();
 		content.set(FIELD.getJsonKey(), value);
-		Schema schema = new Schema(null, content, parent);
 
 		// When
 		boolean result = FIELD.is(schema);
@@ -235,16 +217,14 @@ class DefinitionTest {
 
 	@ParameterizedTest
 	@MethodSource("definitionsAndValued")
-	void when_set_missing_on_valued_values_must_do_nothing(Definition definition, JsonNode value) {
+	void when_fill_missing_value_on_valued_values_must_do_nothing(Definition definition, JsonNode value) {
 
 		// Given
-		ObjectNode content = springDataCouchbaseRuleFactory.getObjectMapper().createObjectNode();
 		content.set(definition.getJsonKey(), value);
 		ObjectNode contentCopy = content.deepCopy();
-		Schema schema = new Schema(null, content, null);
 
 		// When
-		definition.setMissing(schema);
+		definition.fillMissingValue(schema);
 
 		// Then
 		assertThat(content).isEqualTo(contentCopy);
@@ -252,17 +232,43 @@ class DefinitionTest {
 
 	@ParameterizedTest
 	@MethodSource("definitionsAndNonValued")
-	void when_set_missing_on_non_valued_values_must_set_it(Definition definition, JsonNode value) {
+	void when_fill_missing_value_on_non_valued_values_must_set_it(Definition definition, JsonNode value) {
 
 		// Given
-		ObjectNode content = springDataCouchbaseRuleFactory.getObjectMapper().createObjectNode();
 		content.set(definition.getJsonKey(), value);
-		Schema schema = new Schema(null, content, null);
 
 		// When
-		definition.setMissing(schema);
+		definition.fillMissingValue(schema);
 
 		// Then
 		assertThat(content.path(definition.getJsonKey()).isBoolean()).isTrue();
+	}
+
+	@ParameterizedTest
+	@NonValuedJsonSource
+	void when_fill_all_missing_values_on_non_valued_values_must_set_all(JsonNode value) {
+
+		// Given
+		definitions().forEach(def -> content.set(def.getJsonKey(), value));
+
+		// When
+		Definition.fillAllMissingValues(schema);
+
+		// Then
+		definitions().forEach(def -> assertThat(content.path(def.getJsonKey()).isBoolean()).isTrue());
+	}
+
+	@ParameterizedTest
+	@ValuedJsonSource
+	void when_fill_all_missing_values_on_valued_values_must_do_nothing(JsonNode value) {
+
+		// Given
+		definitions().forEach(def -> content.set(def.getJsonKey(), value));
+
+		// When
+		Definition.fillAllMissingValues(schema);
+
+		// Then
+		definitions().forEach(def -> assertThat(content.path(def.getJsonKey())).isEqualTo(value));
 	}
 }

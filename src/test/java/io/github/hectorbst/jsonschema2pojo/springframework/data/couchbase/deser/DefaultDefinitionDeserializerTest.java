@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.stream.Stream;
 
-import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.test.TestUtil.combinatorial;
+import static io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.tests.TestsUtil.combinatorial;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -31,6 +31,7 @@ import static org.mockito.Mockito.when;
 class DefaultDefinitionDeserializerTest {
 
 	final StdDeserializer<?> defaultJsonDeserializer = mock(StdDeserializer.class);
+	final DeserializationContext deserializationContext = mock(DeserializationContext.class);
 
 	static Stream<? extends Serializable> defaultDefinitions() {
 		return DefaultDefinitionDeserializerModifier.DEFAULT_DEFINITIONS.values().stream();
@@ -64,7 +65,6 @@ class DefaultDefinitionDeserializerTest {
 		// Given
 		DefaultDefinitionDeserializer<T> defaultDefinitionDeserializer = new DefaultDefinitionDeserializer<>(defaultJsonDeserializer, defaultDef);
 		JsonParser jsonParser = getBooleanOrNullJsonParserMock(value);
-		DeserializationContext deserializationContext = mock(DeserializationContext.class);
 
 		// When
 		T result = defaultDefinitionDeserializer.deserialize(jsonParser, deserializationContext);
@@ -80,7 +80,6 @@ class DefaultDefinitionDeserializerTest {
 		// Given
 		DefaultDefinitionDeserializer<T> defaultDefinitionDeserializer = new DefaultDefinitionDeserializer<>(defaultJsonDeserializer, defaultDef);
 		JsonParser jsonParser = getBooleanOrNullJsonParserMock(true);
-		DeserializationContext deserializationContext = mock(DeserializationContext.class);
 
 		// When
 		T result = defaultDefinitionDeserializer.deserialize(jsonParser, deserializationContext);
@@ -97,7 +96,6 @@ class DefaultDefinitionDeserializerTest {
 		DefaultDefinitionDeserializer<T> defaultDefinitionDeserializer = new DefaultDefinitionDeserializer<>(defaultJsonDeserializer, defaultDef);
 		JsonParser jsonParser = mock(JsonParser.class);
 		when(jsonParser.getCurrentToken()).thenReturn(JsonToken.START_OBJECT);
-		DeserializationContext deserializationContext = mock(DeserializationContext.class);
 
 		// When
 		defaultDefinitionDeserializer.deserialize(jsonParser, deserializationContext);
