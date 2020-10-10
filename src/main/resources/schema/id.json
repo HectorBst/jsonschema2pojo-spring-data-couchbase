@@ -10,10 +10,7 @@
 				},
 				"strategy": {
 					"type": "string",
-					"enum": [
-						"USE_ATTRIBUTES",
-						"UNIQUE"
-					]
+					"format": "generationStrategy"
 				}
 			}
 		}

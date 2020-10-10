@@ -1,0 +1,66 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"title": "Pet",
+	"type": "object",
+	"x-cb-document": {
+		"compositeIndexes": [
+			{
+				"fields": [
+					"userId",
+					"type"
+				]
+			}
+		]
+	},
+	"properties": {
+		"id": {
+			"title": "Purchase id",
+			"type": "string",
+			"x-cb-id": {
+				"generated": {
+					"delimiter": "/",
+					"strategy": "UNIQUE"
+				}
+			}
+		},
+		"cas": {
+			"title": "Document CAS",
+			"type": "integer",
+			"format": "int64",
+			"x-cb-cas": true
+		},
+		"idPrefix": {
+			"title": "Id prefix",
+			"type": "string",
+			"default": "pets",
+			"x-cb-idPrefix": true
+		},
+		"userId": {
+			"title": "Owner user id",
+			"type": "string",
+			"x-cb-field": {
+				"index": true
+			}
+		},
+		"name": {
+			"title": "Pet name",
+			"type": "string"
+		},
+		"description": {
+			"title": "Pet description",
+			"type": "string"
+		},
+		"type": {
+			"title": "Pet type",
+			"type": "string",
+			"enum": [
+				"CAT",
+				"DOG",
+				"FERRET",
+				"GUINEA_PIG",
+				"HAMSTER",
+				"RABBIT"
+			]
+		}
+	}
+}

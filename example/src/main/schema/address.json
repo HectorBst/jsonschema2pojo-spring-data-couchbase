@@ -1,0 +1,48 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"title": "Address",
+	"type": "object",
+	"properties": {
+		"id": {
+			"title": "Document id",
+			"type": "string",
+			"x-cb-id": {
+				"generated": {
+					"delimiter": "/",
+					"strategy": "USE_ATTRIBUTES"
+				}
+			}
+		},
+		"cas": {
+			"title": "Document CAS",
+			"type": "integer",
+			"format": "int64",
+			"x-cb-cas": true
+		},
+		"idSuffix": {
+			"title": "Id suffix",
+			"type": "string",
+			"default": "address",
+			"x-cb-idSuffix": true
+		},
+		"userId": {
+			"title": "Address user id",
+			"type": "string",
+			"x-cb-field": {
+				"idAttribute": true
+			}
+		},
+		"street": {
+			"title": "Address street",
+			"type": "string"
+		},
+		"zipCode": {
+			"title": "Address zip code",
+			"type": "string"
+		},
+		"city": {
+			"title": "Address city",
+			"type": "string"
+		}
+	}
+}

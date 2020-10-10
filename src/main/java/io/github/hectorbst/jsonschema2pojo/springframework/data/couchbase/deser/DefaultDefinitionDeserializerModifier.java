@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.definitions.CasDef;
 import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.definitions.DocumentDef;
 import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.definitions.FieldDef;
 import io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.definitions.GeneratedDef;
@@ -30,8 +29,7 @@ import java.util.stream.Stream;
  */
 public class DefaultDefinitionDeserializerModifier extends BeanDeserializerModifier {
 
-	private final Map<Class<?>, Object> defaultDefinitions = Collections.unmodifiableMap(Stream.of(
-			CasDef.class,
+	protected static final Map<Class<? extends Serializable>, ? extends Serializable> DEFAULT_DEFINITIONS = Collections.unmodifiableMap(Stream.of(
 			DocumentDef.class,
 			FieldDef.class,
 			GeneratedDef.class,
@@ -46,7 +44,7 @@ public class DefaultDefinitionDeserializerModifier extends BeanDeserializerModif
 				try {
 					return clazz.getConstructor().newInstance();
 				} catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-					throw new RuntimeException(e.getMessage(), e);
+					throw new DefaultDefinitionInstantiationException(e.getMessage(), e);
 				}
 			}
 	)));
@@ -54,8 +52,8 @@ public class DefaultDefinitionDeserializerModifier extends BeanDeserializerModif
 	@Override
 	public JsonDeserializer<?> modifyDeserializer(DeserializationConfig config, BeanDescription beanDesc, JsonDeserializer<?> deserializer) {
 
-		if (defaultDefinitions.containsKey(beanDesc.getBeanClass())) {
-			return new DefaultDefinitionDeserializer<>((StdDeserializer<?>) deserializer, (Serializable) defaultDefinitions.get(beanDesc.getBeanClass()));
+		if (DEFAULT_DEFINITIONS.containsKey(beanDesc.getBeanClass())) {
+			return new DefaultDefinitionDeserializer<>((StdDeserializer<?>) deserializer, (Serializable) DEFAULT_DEFINITIONS.get(beanDesc.getBeanClass()));
 		}
 
 		return deserializer;

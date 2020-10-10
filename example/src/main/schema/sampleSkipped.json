@@ -1,0 +1,22 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"title": "Sample DTO skipped by Couchbase rules",
+	"type": "object",
+	"x-cb-document": false,
+	"properties": {
+		"oneSkippedField": {
+			"title": "A sample field skipped by Couchbase rules",
+			"type": "string"
+		},
+		"oneSkippedSubObject": {
+			"title": "A skipped sample sub object",
+			"type": "object",
+			"properties": {
+				"oneSkippedSubField": {
+					"title": "An other skipped sample string",
+					"type": "string"
+				}
+			}
+		}
+	}
+}

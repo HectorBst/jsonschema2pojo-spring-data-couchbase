@@ -1,0 +1,44 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"title": "User",
+	"type": "object",
+	"properties": {
+		"id": {
+			"title": "User id",
+			"type": "string",
+			"x-cb-id": {
+				"generated": {
+					"delimiter": "/",
+					"strategy": "UNIQUE"
+				}
+			}
+		},
+		"cas": {
+			"title": "Document CAS",
+			"type": "integer",
+			"format": "int64",
+			"x-cb-cas": true
+		},
+		"idPrefix": {
+			"title": "Id prefix",
+			"type": "string",
+			"default": "users",
+			"x-cb-idPrefix": true
+		},
+		"firstName": {
+			"title": "User first name",
+			"type": "string"
+		},
+		"lastName": {
+			"title": "User last name",
+			"type": "string"
+		},
+		"emailAddress": {
+			"title": "User last name",
+			"type": "string",
+			"x-cb-field": {
+				"index": true
+			}
+		}
+	}
+}
