@@ -1,7 +1,7 @@
 [![Build](https://img.shields.io/github/workflow/status/hectorbst/jsonschema2pojo-spring-data-couchbase/Build?label=Build)](https://github.com/HectorBst/jsonschema2pojo-spring-data-couchbase/actions?query=workflow%3ABuild)
 [![Coverage](https://img.shields.io/sonar/coverage/HectorBst_jsonschema2pojo-spring-data-couchbase?server=https%3A%2F%2Fsonarcloud.io&label=Coverage)](https://sonarcloud.io/dashboard?id=HectorBst_jsonschema2pojo-spring-data-couchbase)
 [![Violations](https://img.shields.io/sonar/violations/HectorBst_jsonschema2pojo-spring-data-couchbase?server=https%3A%2F%2Fsonarcloud.io&label=Violations)](https://sonarcloud.io/dashboard?id=HectorBst_jsonschema2pojo-spring-data-couchbase)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.hectorbst/jsonschema2pojo-spring-data-couchbase?label=Maven%20Central)](https://search.maven.org/artifact/io.github.hectorbst/jsonschema2pojo-spring-data-couchbase)
+[![Maven Central](https://img.shields.io/maven-central/v/dev.hctbst/jsonschema2pojo-spring-data-couchbase?label=Maven%20Central)](https://search.maven.org/artifact/dev.hctbst/jsonschema2pojo-spring-data-couchbase)
 [![License](https://img.shields.io/github/license/hectorbst/jsonschema2pojo-spring-data-couchbase?label=License)](LICENSE)
 
 # jsonschema2pojo-spring-data-couchbase
@@ -487,38 +487,39 @@ You can find more information on Spring Data Couchbase key generation [here](htt
 Here is an example of how the extension can be added to the jsonschema2pojo Maven plugin.
 
 ```xml
+
 <plugin>
-    <groupId>org.jsonschema2pojo</groupId>
-    <artifactId>jsonschema2pojo-maven-plugin</artifactId>
-    <version>${jsonschema2pojo.version}</version>
-    <executions>
-        <execution>
-            <goals>
-                <goal>generate</goal>
-            </goals>
-            <configuration>
-                ...
-                <!-- Extension RuleFactory -->
-                <customRuleFactory>
-                    io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.SpringDataCouchbaseRuleFactory
-                </customRuleFactory>
-            </configuration>
-        </execution>
-    </executions>
-    <dependencies>
-        <!-- Extension dependency -->
-        <dependency>
-            <groupId>com.github.hectorbst.jsonschema2pojo</groupId>
-            <artifactId>jsonschema2pojo-spring-data-couchbase</artifactId>
-            <version>${jsonschema2pojo-spring-data-couchbase.version}</version>
-        </dependency>
-        <!-- Spring Data Couchbase dependency -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-couchbase</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-    </dependencies>
+	<groupId>org.jsonschema2pojo</groupId>
+	<artifactId>jsonschema2pojo-maven-plugin</artifactId>
+	<version>${jsonschema2pojo.version}</version>
+	<executions>
+		<execution>
+			<goals>
+				<goal>generate</goal>
+			</goals>
+			<configuration>
+				...
+				<!-- Extension RuleFactory -->
+				<customRuleFactory>
+					dev.hctbst.jsonschema2pojo.springframework.data.couchbase.SpringDataCouchbaseRuleFactory
+				</customRuleFactory>
+			</configuration>
+		</execution>
+	</executions>
+	<dependencies>
+		<!-- Extension dependency -->
+		<dependency>
+			<groupId>dev.hctbst.jsonschema2pojo</groupId>
+			<artifactId>jsonschema2pojo-spring-data-couchbase</artifactId>
+			<version>${jsonschema2pojo-spring-data-couchbase.version}</version>
+		</dependency>
+		<!-- Spring Data Couchbase dependency -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-couchbase</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+	</dependencies>
 </plugin>
 ```
 

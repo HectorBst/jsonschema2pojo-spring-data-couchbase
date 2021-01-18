@@ -11,7 +11,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>io.github.hectorbst</groupId>
+	<groupId>dev.hctbst</groupId>
 	<artifactId>jsonschema2pojo-spring-data-couchbase-example</artifactId>
 	<version>1.0.0</version>
 
@@ -50,7 +50,7 @@
 						<configuration>
 							<sourceDirectory>${basedir}/src/main/schema</sourceDirectory>
 							<targetPackage>
-								io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.example.domain
+								dev.hctbst.jsonschema2pojo.springframework.data.couchbase.example.domain
 							</targetPackage>
 							<generateBuilders>true</generateBuilders>
 							<useInnerClassBuilders>false</useInnerClassBuilders>
@@ -73,14 +73,14 @@
 								<real>java.math.BigDecimal</real>
 							</formatTypeMapping>
 							<customRuleFactory>
-								io.github.hectorbst.jsonschema2pojo.springframework.data.couchbase.SpringDataCouchbaseRuleFactory
+								dev.hctbst.jsonschema2pojo.springframework.data.couchbase.SpringDataCouchbaseRuleFactory
 							</customRuleFactory>
 						</configuration>
 					</execution>
 				</executions>
 				<dependencies>
 					<dependency>
-						<groupId>io.github.hectorbst</groupId>
+						<groupId>dev.hctbst</groupId>
 						<artifactId>jsonschema2pojo-spring-data-couchbase</artifactId>
 						<version>${jsonschema2pojo-spring-data-couchbase.version}</version>
 					</dependency>
