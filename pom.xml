@@ -41,7 +41,7 @@
 		<jsonschema2pojo.version>1.0.2</jsonschema2pojo.version>
 		<spring-boot.version>2.3.4.RELEASE</spring-boot.version>
 		<junit.version>5.7.0</junit.version>
-		<assertj.version>3.17.2</assertj.version>
+		<assertj.version>3.27.7</assertj.version>
 		<mockito.version>3.5.13</mockito.version>
 		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
 		<maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
